@@ -45,7 +45,7 @@ const Footer = () => {
           <div className="lg:col-span-1">
             <a href="#inicio" className="flex items-center gap-3 mb-5">
               <img
-                src={`${import.meta.env.BASE_URL}images/logo/logo.png`}
+                src={`/web/images/logo/logo.png`}
                 alt="Vortex Studio"
                 loading="lazy"
                 decoding="async"

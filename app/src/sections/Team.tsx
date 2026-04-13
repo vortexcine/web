@@ -68,7 +68,7 @@ const Team = () => {
     return {
       name,
       role,
-      image: `${import.meta.env.BASE_URL}images/team/${file}`,
+      image: `/web/images/team/${file}`,
     };
   });
 
