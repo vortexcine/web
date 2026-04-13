@@ -71,6 +71,8 @@ const Team = () => {
     };
   });
 
+  const encodePath = (path: string) => encodeURI(path);
+
   return (
     <section
       id="equipo"
@@ -111,7 +113,7 @@ const Team = () => {
                 {/* Image */}
                 <div className="aspect-[3/4] overflow-hidden">
                   <img
-                    src={member.image}
+                    src={encodePath(member.image)}
                     alt={member.name}
                     className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-105"
                   />

@@ -87,6 +87,8 @@ const Portfolio = () => {
       ? projects
       : projects.filter((p) => p.type === activeFilter);
 
+  const encodePath = (path: string) => encodeURI(path);
+
   return (
     <section
       id="portafolio"
@@ -140,7 +142,7 @@ const Portfolio = () => {
             >
               {/* Image */}
               <img
-                src={project.image}
+                src={encodePath(project.image)}
                 alt={project.title}
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
               />

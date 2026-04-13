@@ -39,7 +39,7 @@ const Hero = () => {
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black" />
         <img
-          src={`${import.meta.env.BASE_URL}images/portfolio/stills/Gangrena(1).jpg`}
+          src={encodeURI(`${import.meta.env.BASE_URL}images/portfolio/stills/Gangrena(1).jpg`)}
           alt="Background"
           className="w-full h-full object-cover opacity-40"
         />
@@ -50,7 +50,7 @@ const Hero = () => {
         {/* Logo */}
         <div className="reveal mb-8">
           <img
-            src={`${import.meta.env.BASE_URL}images/logo/logo.png`}
+            src={encodeURI(`${import.meta.env.BASE_URL}images/logo/logo.png`)}
             alt="Vortex Studio"
             className="h-24 md:h-32 w-auto mx-auto"
           />
