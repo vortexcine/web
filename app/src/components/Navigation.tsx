@@ -49,6 +49,8 @@ const Navigation = () => {
             <img
               src={`${import.meta.env.BASE_URL}images/logo/logo.png`}
               alt="Vortex Studio"
+              loading="eager"
+              decoding="async"
               className="h-10 w-auto"
             />
             <span className="hidden sm:block text-white font-semibold text-lg tracking-wide">

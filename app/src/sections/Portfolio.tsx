@@ -42,7 +42,7 @@ const Portfolio = () => {
     elements?.forEach((el) => observer.observe(el));
 
     return () => observer.disconnect();
-  }, []);
+  }, [activeFilter]);
 
   // Proyectos organizados por categoría
   const projects: Project[] = [
@@ -86,6 +86,17 @@ const Portfolio = () => {
     activeFilter === 'todos'
       ? projects
       : projects.filter((p) => p.type === activeFilter);
+
+  const videoclipFirstIds = new Set<number>();
+  const seenVideoclipTitles = new Set<string>();
+
+  projects.forEach((project) => {
+    if (project.type !== 'videoclip') return;
+    if (!seenVideoclipTitles.has(project.title)) {
+      seenVideoclipTitles.add(project.title);
+      videoclipFirstIds.add(project.id);
+    }
+  });
 
   const encodePath = (path: string) => encodeURI(path);
 
@@ -144,6 +155,8 @@ const Portfolio = () => {
               <img
                 src={encodePath(project.image)}
                 alt={project.title}
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
               />
 
@@ -161,9 +174,11 @@ const Portfolio = () => {
               </div>
 
               {/* Play Icon */}
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-[#A855F7]/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:scale-110">
-                <Play size={20} fill="white" className="text-white ml-1" />
-              </div>
+              {project.type === 'videoclip' && videoclipFirstIds.has(project.id) && (
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-[#A855F7]/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:scale-110">
+                  <Play size={20} fill="white" className="text-white ml-1" />
+                </div>
+              )}
             </div>
           ))}
         </div>

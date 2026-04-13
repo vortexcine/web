@@ -41,6 +41,9 @@ const Hero = () => {
         <img
           src={encodeURI(`${import.meta.env.BASE_URL}images/portfolio/stills/Gangrena(1).jpg`)}
           alt="Background"
+          loading="eager"
+          decoding="async"
+          fetchPriority="high"
           className="w-full h-full object-cover opacity-40"
         />
       </div>
@@ -52,6 +55,8 @@ const Hero = () => {
           <img
             src={encodeURI(`${import.meta.env.BASE_URL}images/logo/logo.png`)}
             alt="Vortex Studio"
+            loading="eager"
+            decoding="async"
             className="h-24 md:h-32 w-auto mx-auto"
           />
         </div>

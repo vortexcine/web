@@ -47,6 +47,8 @@ const Footer = () => {
               <img
                 src={`${import.meta.env.BASE_URL}images/logo/logo.png`}
                 alt="Vortex Studio"
+                loading="lazy"
+                decoding="async"
                 className="h-12 w-auto"
               />
             </a>

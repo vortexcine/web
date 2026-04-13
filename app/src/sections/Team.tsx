@@ -54,6 +54,7 @@ const Team = () => {
     'Cesar Abarca - Founder _ Productor ejecutivo _ Director.jpeg',
     'Crhistian Bustamante - Sonido directo _ Asistente de Dirección dirección.JPG',
     'Elizabeth Ibarra - Asistente de Producción _ Styling.jpeg',
+    'Francisco Berrios - Jefe Gaffer y  electrico.jpg',
     'Francisca Venegas - Directora Creativa _ Guionista.jpg',
     'Joaquín Campos - Director de Fotografía _ Postproductor.jpeg',
     'Luis Tobar - Operador de Cámara.jpeg',
@@ -71,7 +72,10 @@ const Team = () => {
     };
   });
 
-  const encodePath = (path: string) => encodeURI(path);
+  const encodePath = (path: string) => {
+    // Codificar cada parte del path correctamente
+    return path.split('/').map(part => encodeURIComponent(part)).join('/');
+  };
 
   return (
     <section
@@ -96,7 +100,7 @@ const Team = () => {
           </h2>
 
           <p className="reveal stagger-2 text-gray-400 max-w-2xl mx-auto">
-            Un equipo multidisciplinario de 11 profesionales apasionados por el
+            Un equipo multidisciplinario de 12 profesionales apasionados por el
             cine, la música y el arte visual. Juntos, convertimos ideas en
             realidad.
           </p>
@@ -111,10 +115,12 @@ const Team = () => {
             >
               <div className="relative overflow-hidden rounded-xl bg-white/5 border border-white/10 card-hover">
                 {/* Image */}
-                <div className="aspect-[3/4] overflow-hidden">
+                <div className="aspect-[3/4] overflow-hidden bg-gray-800">
                   <img
                     src={encodePath(member.image)}
                     alt={member.name}
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-105"
                   />
                 </div>
