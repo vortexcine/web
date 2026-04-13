@@ -46,14 +46,27 @@ const Team = () => {
     return () => observer.disconnect();
   }, []);
 
+  type TeamFile =
+    | string
+    | {
+        label: string;
+        file: string;
+      };
+
   // Lista de archivos del equipo
-  const teamFiles = [
+  const teamFiles: TeamFile[] = [
     'Ariel Aguilera - Director de Fotografía _ Operador de Cámara .jpeg',
     'Carlos Cruces - Productor Comercial.jpeg',
     'Cesar Abarca - Founder _ Productor ejecutivo _ Director.jpeg',
     'Crhistian Bustamante - Sonido directo _ Asistente de Dirección dirección.JPG',
-    'Elizabeth Ibarra - Asistente de Producción _ Styling.jpeg',
-    'Francisco Berrios - Jefe Gaffer y  electrico.jpg',
+    {
+      label: 'Elizabeth Ibarra - Asistente de Produccion _ Styling.jpeg',
+      file: 'elizabeth-ibarra-styling.jpeg',
+    },
+    {
+      label: 'Francisco Berrios - Jefe Gaffer y electrico.jpg',
+      file: 'francisco-berrios-gaffer-electrico.jpg',
+    },
     'Francisca Venegas - Directora Creativa _ Guionista.jpg',
     'Joaquín Campos - Director de Fotografía _ Postproductor.jpeg',
     'Luis Tobar - Operador de Cámara.jpeg',
@@ -62,12 +75,14 @@ const Team = () => {
     'Vicente Cortés - Director de Arte _ Asistente de Producción .JPG',
   ];
 
-  const team: TeamMember[] = teamFiles.map((file) => {
+  const team: TeamMember[] = teamFiles.map((teamFile) => {
+    const file = typeof teamFile === 'string' ? teamFile : teamFile.label;
+    const imageFile = typeof teamFile === 'string' ? teamFile : teamFile.file;
     const { name, role } = parseTeamMember(file);
     return {
       name,
       role,
-      image: `/web/images/team/${file}`,
+      image: `/web/images/team/${imageFile}`,
     };
   });
 
