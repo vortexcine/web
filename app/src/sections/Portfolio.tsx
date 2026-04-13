@@ -111,7 +111,7 @@ const Portfolio = () => {
           </h2>
 
           <p className="reveal stagger-2 text-gray-400 max-w-2xl mx-auto">
-            Una selección de nuestros trabajos en videoclip cinematográficos,
+            Una selección de nuestros trabajos Audiovisuales,
             fotografía artística y detrás de cámaras.
           </p>
         </div>

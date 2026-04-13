@@ -53,7 +53,7 @@ const Team = () => {
     'Carlos Cruces - Productor Comercial.jpeg',
     'Cesar Abarca - Founder _ Productor ejecutivo _ Director.jpeg',
     'Crhistian Bustamante - Sonido directo _ Asistente de Dirección dirección.JPG',
-    'Elizabeth Cuevas - Asistente de Producción _ Styling.jpeg',
+    'Elizabeth Ibarra - Asistente de Producción _ Styling.jpeg',
     'Francisca Venegas - Directora Creativa _ Guionista.jpg',
     'Joaquín Campos - Director de Fotografía _ Postproductor.jpeg',
     'Luis Tobar - Operador de Cámara.jpeg',
