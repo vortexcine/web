@@ -47,7 +47,7 @@ const Navigation = () => {
             className="flex items-center gap-3"
           >
             <img
-              src="/images/logo/logo.png"
+              src={`${import.meta.env.BASE_URL}images/logo/logo.png`}
               alt="Vortex Studio"
               className="h-10 w-auto"
             />
