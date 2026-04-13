@@ -1,5 +1,4 @@
 import { useEffect, useRef } from 'react';
-import { Instagram, Linkedin, Mail } from 'lucide-react';
 
 interface TeamMember {
   name: string;
@@ -133,34 +132,9 @@ const Team = () => {
                   <h3 className="text-white font-bold text-lg mb-1">
                     {member.name}
                   </h3>
-                  <p className="text-[#A855F7] text-sm font-medium mb-3">
+                  <p className="text-[#A855F7] text-sm font-medium">
                     {member.role}
                   </p>
-
-                  {/* Social Links */}
-                  <div className="flex gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-2 group-hover:translate-y-0">
-                    <a
-                      href="#"
-                      className="w-8 h-8 rounded-full bg-white/10 hover:bg-[#A855F7] flex items-center justify-center transition-colors"
-                      aria-label={`Instagram de ${member.name}`}
-                    >
-                      <Instagram size={14} />
-                    </a>
-                    <a
-                      href="#"
-                      className="w-8 h-8 rounded-full bg-white/10 hover:bg-[#A855F7] flex items-center justify-center transition-colors"
-                      aria-label={`LinkedIn de ${member.name}`}
-                    >
-                      <Linkedin size={14} />
-                    </a>
-                    <a
-                      href="#"
-                      className="w-8 h-8 rounded-full bg-white/10 hover:bg-[#A855F7] flex items-center justify-center transition-colors"
-                      aria-label={`Email de ${member.name}`}
-                    >
-                      <Mail size={14} />
-                    </a>
-                  </div>
                 </div>
               </div>
             </div>
