@@ -98,7 +98,10 @@ const Portfolio = () => {
     }
   });
 
-  const encodePath = (path: string) => encodeURI(path);
+  const encodePath = (path: string) => {
+    // Codificar cada parte del path correctamente
+    return path.split('/').map(part => encodeURIComponent(part)).join('/');
+  };
 
   return (
     <section
