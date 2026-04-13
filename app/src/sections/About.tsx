@@ -25,7 +25,7 @@ const About = () => {
   const services = [
     {
       icon: Film,
-      title: 'Stills',
+      title: 'Videoclip',
       description:
         'Capturas cinematográficas de alta calidad para videoclips, cortometrajes y producciones audiovisuales.',
     },

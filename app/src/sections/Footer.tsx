@@ -16,7 +16,7 @@ const Footer = () => {
       { label: 'Contacto', href: '#contacto' },
     ],
     servicios: [
-      { label: 'Stills', href: '#' },
+      { label: 'Videoclip', href: '#' },
       { label: 'Fotografía', href: '#' },
       { label: 'Make Off', href: '#' },
       { label: 'Videoclips', href: '#' },

@@ -6,7 +6,7 @@ interface Project {
   title: string;
   category: string;
   image: string;
-  type: 'stills' | 'fotografia' | 'makeoff';
+  type: 'videoclip' | 'fotografia' | 'makeoff';
 }
 
 // Función para limpiar el nombre del archivo
@@ -46,15 +46,15 @@ const Portfolio = () => {
 
   // Proyectos organizados por categoría
   const projects: Project[] = [
-    // Stills (8 imágenes)
-    { id: 1, title: cleanFileName('Gangrena(1).jpg'), category: 'Stills', image: `${import.meta.env.BASE_URL}images/portfolio/stills/Gangrena(1).jpg`, type: 'stills' },
-    { id: 2, title: cleanFileName('Gangrena(2).jpg'), category: 'Stills', image: `${import.meta.env.BASE_URL}images/portfolio/stills/Gangrena(2).jpg`, type: 'stills' },
-    { id: 3, title: cleanFileName('Verte Encima(3).jpg'), category: 'Stills', image: `${import.meta.env.BASE_URL}images/portfolio/stills/Verte Encima(3).jpg`, type: 'stills' },
-    { id: 4, title: cleanFileName('Verte Encima.jpg'), category: 'Stills', image: `${import.meta.env.BASE_URL}images/portfolio/stills/Verte Encima.jpg`, type: 'stills' },
-    { id: 5, title: cleanFileName('Volver pa atras(1).jpg'), category: 'Stills', image: `${import.meta.env.BASE_URL}images/portfolio/stills/Volver pa atras(1).jpg`, type: 'stills' },
-    { id: 6, title: cleanFileName('Volver pa atras(2).jpg'), category: 'Stills', image: `${import.meta.env.BASE_URL}images/portfolio/stills/Volver pa atras(2).jpg`, type: 'stills' },
-    { id: 7, title: cleanFileName('Voy y Vuelvo 1.JPG'), category: 'Stills', image: `${import.meta.env.BASE_URL}images/portfolio/stills/Voy y Vuelvo 1.JPG`, type: 'stills' },
-    { id: 8, title: cleanFileName('Voy y Vuelvo 2.jpg'), category: 'Stills', image: `${import.meta.env.BASE_URL}images/portfolio/stills/Voy y Vuelvo 2.jpg`, type: 'stills' },
+    // Videoclip (8 imágenes)
+    { id: 1, title: cleanFileName('Gangrena(1).jpg'), category: 'Videoclip', image: `${import.meta.env.BASE_URL}images/portfolio/stills/Gangrena(1).jpg`, type: 'videoclip' },
+    { id: 2, title: cleanFileName('Gangrena(2).jpg'), category: 'Videoclip', image: `${import.meta.env.BASE_URL}images/portfolio/stills/Gangrena(2).jpg`, type: 'videoclip' },
+    { id: 3, title: cleanFileName('Verte Encima(3).jpg'), category: 'Videoclip', image: `${import.meta.env.BASE_URL}images/portfolio/stills/Verte Encima(3).jpg`, type: 'videoclip' },
+    { id: 4, title: cleanFileName('Verte Encima.jpg'), category: 'Videoclip', image: `${import.meta.env.BASE_URL}images/portfolio/stills/Verte Encima.jpg`, type: 'videoclip' },
+    { id: 5, title: cleanFileName('Volver pa atras(1).jpg'), category: 'Videoclip', image: `${import.meta.env.BASE_URL}images/portfolio/stills/Volver pa atras(1).jpg`, type: 'videoclip' },
+    { id: 6, title: cleanFileName('Volver pa atras(2).jpg'), category: 'Videoclip', image: `${import.meta.env.BASE_URL}images/portfolio/stills/Volver pa atras(2).jpg`, type: 'videoclip' },
+    { id: 7, title: cleanFileName('Voy y Vuelvo 1.JPG'), category: 'Videoclip', image: `${import.meta.env.BASE_URL}images/portfolio/stills/Voy y Vuelvo 1.JPG`, type: 'videoclip' },
+    { id: 8, title: cleanFileName('Voy y Vuelvo 2.jpg'), category: 'Videoclip', image: `${import.meta.env.BASE_URL}images/portfolio/stills/Voy y Vuelvo 2.jpg`, type: 'videoclip' },
     // Fotografía (8 imágenes)
     { id: 9, title: cleanFileName('Sesión de Fotos 14.JPG'), category: 'Fotografía', image: `${import.meta.env.BASE_URL}images/portfolio/fotografia/Sesión de Fotos 14.JPG`, type: 'fotografia' },
     { id: 10, title: cleanFileName('Sesión de Fotos 17.jpg'), category: 'Fotografía', image: `${import.meta.env.BASE_URL}images/portfolio/fotografia/Sesión de Fotos 17.jpg`, type: 'fotografia' },
@@ -77,7 +77,7 @@ const Portfolio = () => {
 
   const filters = [
     { id: 'todos', label: 'Todos' },
-    { id: 'stills', label: 'Stills' },
+    { id: 'videoclip', label: 'Videoclip' },
     { id: 'fotografia', label: 'Fotografía' },
     { id: 'makeoff', label: 'Make Off' },
   ];
@@ -111,7 +111,7 @@ const Portfolio = () => {
           </h2>
 
           <p className="reveal stagger-2 text-gray-400 max-w-2xl mx-auto">
-            Una selección de nuestros trabajos en stills cinematográficos,
+            Una selección de nuestros trabajos en videoclip cinematográficos,
             fotografía artística y detrás de cámaras.
           </p>
         </div>

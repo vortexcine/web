@@ -230,8 +230,8 @@ const Contact = () => {
                       <option value="" className="bg-black">
                         Selecciona una opción
                       </option>
-                      <option value="stills" className="bg-black">
-                        Stills Cinematográficos
+                      <option value="videoclip" className="bg-black">
+                        Videoclip Cinematográficos
                       </option>
                       <option value="fotografia" className="bg-black">
                         Sesión Fotográfica
