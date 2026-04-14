@@ -17,10 +17,10 @@ const LazyImage = ({ className, src, onLoad, style, revealDelayMs = 0, ...props 
       window.clearTimeout(loadTimerRef.current);
     }
 
-    // Small delay keeps the cinematic transition perceptible even on cache hits
+    // Slightly longer delay avoids cache-timing snap and keeps reveal perceptible
     loadTimerRef.current = window.setTimeout(() => {
       setIsLoaded(true);
-    }, 60);
+    }, 150);
   };
 
   useEffect(() => {
