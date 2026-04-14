@@ -8,11 +8,7 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function getAssetUrl(path: string) {
-  const normalized = path.replace(/^\/+/, '').replace(/^web\//, '')
-  const encoded = normalized
-    .split('/')
-    .map((segment) => encodeURIComponent(segment))
-    .join('/')
-
-  return `${baseUrl}${encoded}`
+  // Only normalize leading slashes and remove duplicate 'web/' if present
+  const normalized = path.replace(/^\/\/+/, '').replace(/^web\//, '')
+  return `${baseUrl}${normalized}`
 }

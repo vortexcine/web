@@ -76,10 +76,7 @@ const Portfolio = () => {
     { id: 24, title: cleanFileName('Prueba de Iluminacion(1).webp'), category: 'Make Off', image: '/images/portfolio/makeoff/Prueba de Iluminacion(1).webp', type: 'makeoff' },
   ];
 
-  // Codifica cada segmento del path para evitar errores de espacios/tildes/paréntesis
-  function encodePath(path: string) {
-    return path.split('/').map(encodeURIComponent).join('/');
-  }
+
 
   const filters = [
     { id: 'todos', label: 'Todos' },
@@ -157,7 +154,7 @@ const Portfolio = () => {
             >
               {/* Image */}
               <img
-                src={getAssetUrl(encodePath(project.image))}
+                src={getAssetUrl(project.image)}
                 alt={project.title}
                 loading="lazy"
                 decoding="async"
