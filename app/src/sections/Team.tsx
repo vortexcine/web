@@ -53,7 +53,7 @@ const Team = () => {
     {
       name: 'Elizabeth Ibarra',
       role: 'Asistente de Producción / Styling',
-      imageFile: 'elizabeth-ibarra-styling.jpeg',
+      imageFile: 'elizabeth-ibarra-asistente-de-produccion-styling.jpeg',
     },
     {
       name: 'Francisco Berrios',
