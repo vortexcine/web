@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Play, ExternalLink } from 'lucide-react';
+import { getAssetUrl } from '@/lib/utils';
 
 interface Project {
   id: number;
@@ -98,11 +99,6 @@ const Portfolio = () => {
     }
   });
 
-  const encodePath = (path: string) => {
-    // Codificar cada parte del path correctamente
-    return path.split('/').map(part => encodeURIComponent(part)).join('/');
-  };
-
   return (
     <section
       id="portafolio"
@@ -156,7 +152,7 @@ const Portfolio = () => {
             >
               {/* Image */}
               <img
-                src={encodePath(project.image)}
+                src={getAssetUrl(project.image)}
                 alt={project.title}
                 loading="lazy"
                 decoding="async"

@@ -1,4 +1,5 @@
 import { Instagram, Youtube, Film, Mail, ArrowUp } from 'lucide-react';
+import { getAssetUrl } from '@/lib/utils';
 
 const Footer = () => {
   const scrollToTop = () => {
@@ -45,7 +46,7 @@ const Footer = () => {
           <div className="lg:col-span-1">
             <a href="#inicio" className="flex items-center gap-3 mb-5">
               <img
-                src={`/web/images/logo/logo.png`}
+                src={getAssetUrl('/images/logo/logo.png')}
                 alt="Vortex Studio"
                 loading="lazy"
                 decoding="async"

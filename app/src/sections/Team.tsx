@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { getAssetUrl } from '@/lib/utils';
 
 interface TeamMember {
   name: string;
@@ -26,8 +27,6 @@ const Team = () => {
 
     return () => observer.disconnect();
   }, []);
-
-  const baseUrl = import.meta.env.BASE_URL ?? '/';
 
   const teamMembers = [
     {
@@ -95,7 +94,7 @@ const Team = () => {
   const team: TeamMember[] = teamMembers.map((member) => ({
     name: member.name,
     role: member.role,
-    image: `${baseUrl}images/team/${member.imageFile}`,
+    image: getAssetUrl(`/images/team/${member.imageFile}`),
   }));
 
   return (

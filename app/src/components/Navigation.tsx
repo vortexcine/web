@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
+import { getAssetUrl } from '@/lib/utils';
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -47,7 +48,7 @@ const Navigation = () => {
             className="flex items-center gap-3"
           >
             <img
-              src={`/web/images/logo/logo.png`}
+              src={getAssetUrl('/images/logo/logo.png')}
               alt="Vortex Studio"
               loading="eager"
               decoding="async"
