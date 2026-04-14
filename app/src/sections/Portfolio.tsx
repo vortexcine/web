@@ -4,6 +4,7 @@ import { getAssetUrl } from '@/lib/utils';
 import LazyImage from '@/components/LazyImage';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 
 interface Project {
   id: number;
@@ -30,6 +31,7 @@ const Portfolio = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const [activeFilter, setActiveFilter] = useState<string>('todos');
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
 
@@ -255,6 +257,15 @@ const Portfolio = () => {
                 <div
                   key={project.id}
                   className="group relative overflow-hidden rounded-xl aspect-[4/3] w-[240px] md:w-[280px] xl:w-[300px] cursor-pointer"
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => setSelectedProject(project)}
+                  onKeyDown={(event) => {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                      event.preventDefault();
+                      setSelectedProject(project);
+                    }
+                  }}
                 >
                   <LazyImage
                     src={getAssetUrl(project.image)}
@@ -300,6 +311,39 @@ const Portfolio = () => {
             <ExternalLink size={16} />
           </a>
         </div>
+
+        <Dialog
+          open={selectedProject !== null}
+          onOpenChange={(open) => {
+            if (!open) setSelectedProject(null);
+          }}
+        >
+          <DialogContent
+            showCloseButton
+            className="max-w-[min(96vw,1440px)] border-white/15 bg-black/90 p-0 overflow-hidden"
+          >
+            {selectedProject ? (
+              <>
+                <div className="relative bg-black/80">
+                  <img
+                    src={getAssetUrl(selectedProject.image)}
+                    alt={selectedProject.title}
+                    decoding="async"
+                    className="w-full max-h-[86vh] object-contain"
+                  />
+                </div>
+                <div className="px-5 py-4 border-t border-white/10 bg-black/75">
+                  <DialogTitle className="text-white text-xl font-bold">
+                    {selectedProject.title}
+                  </DialogTitle>
+                  <DialogDescription className="text-[#A855F7] mt-1 text-sm font-medium uppercase tracking-wide">
+                    {selectedProject.category}
+                  </DialogDescription>
+                </div>
+              </>
+            ) : null}
+          </DialogContent>
+        </Dialog>
       </div>
     </section>
   );
