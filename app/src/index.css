@@ -213,10 +213,12 @@ body {
 }
 
 .portfolio-modal-zoom[data-state='open'] {
+  transform-origin: var(--modal-origin-x, 50%) var(--modal-origin-y, 50%);
   animation: portfolio-modal-in 260ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .portfolio-modal-zoom[data-state='closed'] {
+  transform-origin: var(--modal-origin-x, 50%) var(--modal-origin-y, 50%);
   animation: portfolio-modal-out 180ms ease-in forwards;
 }
 

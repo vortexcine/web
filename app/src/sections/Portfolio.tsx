@@ -48,7 +48,9 @@ const Portfolio = () => {
       setModalOrigin({ x: 50, y: 50 });
     }
 
-    setSelectedProject(project);
+    window.requestAnimationFrame(() => {
+      setSelectedProject(project);
+    });
   };
 
   const updateScrollState = () => {
@@ -373,12 +375,22 @@ const Portfolio = () => {
         >
           <DialogContent
             showCloseButton
-            style={{ transformOrigin: `${modalOrigin.x}% ${modalOrigin.y}%` }}
-            className="portfolio-modal-zoom !top-0 !left-0 !translate-x-0 !translate-y-0 !h-screen !w-screen !max-w-none !rounded-none !border-0 !bg-black/95 !p-0 overflow-hidden sm:!max-w-none"
+            style={{
+              ['--modal-origin-x' as string]: `${modalOrigin.x}%`,
+              ['--modal-origin-y' as string]: `${modalOrigin.y}%`,
+            }}
+            className="portfolio-modal-zoom data-[state=open]:animate-none data-[state=closed]:animate-none !top-0 !left-0 !translate-x-0 !translate-y-0 !h-screen !w-screen !max-w-none !rounded-none !border-0 !bg-black/95 !p-0 overflow-hidden sm:!max-w-none"
           >
             {selectedProject ? (
               <>
                 <div className="relative h-full bg-black/90">
+                  <button
+                    type="button"
+                    aria-label="Cerrar vista ampliada"
+                    className="absolute inset-0 z-0 cursor-zoom-out"
+                    onClick={() => setSelectedProject(null)}
+                  />
+
                   <div className="absolute inset-y-0 left-0 z-10 flex items-center pl-4">
                     <Button
                       type="button"
@@ -407,12 +419,14 @@ const Portfolio = () => {
                     </Button>
                   </div>
 
-                  <img
-                    src={getAssetUrl(selectedProject.image)}
-                    alt={selectedProject.title}
-                    decoding="async"
-                    className="w-full h-full object-contain"
-                  />
+                  <div className="relative z-[5] h-full w-full px-3 py-3 md:px-16 md:py-10 flex items-center justify-center">
+                    <img
+                      src={getAssetUrl(selectedProject.image)}
+                      alt={selectedProject.title}
+                      decoding="async"
+                      className="max-w-full max-h-full object-contain"
+                    />
+                  </div>
 
                   <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black/85 via-black/40 to-transparent" />
 
