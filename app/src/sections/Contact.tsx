@@ -1,6 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 import { Mail, Phone, MapPin, Send, Instagram, Youtube, Film } from 'lucide-react';
 
+const projectLabels: Record<string, string> = {
+  videoclip: 'Videoclip Cinematográfico',
+  fotografia: 'Sesión Fotográfica',
+  'videoclip-musical': 'Videoclip Musical',
+  makeoff: 'Make Off / Behind the Scenes',
+  otro: 'Otro',
+};
+
 const Contact = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [formData, setFormData] = useState({
@@ -11,6 +19,7 @@ const Contact = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState('');
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -33,21 +42,52 @@ const Contact = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    
-    setIsSubmitting(false);
-    setSubmitted(true);
-    setFormData({ name: '', email: '', subject: '', message: '' });
-    
-    // Reset success message after 5 seconds
-    setTimeout(() => setSubmitted(false), 5000);
+    setSubmitError('');
+
+    const selectedProject = projectLabels[formData.subject] ?? formData.subject;
+
+    try {
+      const response = await fetch('https://formsubmit.co/ajax/productora@vortexcine.com', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          _subject: `Nueva cotizacion web: ${selectedProject}`,
+          subject: selectedProject,
+          message: formData.message,
+          _captcha: 'false',
+          _template: 'table',
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('No se pudo enviar el formulario.');
+      }
+
+      setSubmitted(true);
+      setFormData({ name: '', email: '', subject: '', message: '' });
+
+      window.setTimeout(() => setSubmitted(false), 5000);
+    } catch {
+      setSubmitError(
+        'No pudimos enviar tu solicitud ahora. Intenta nuevamente o escribe a productora@vortexcine.com.'
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
+    if (submitError) {
+      setSubmitError('');
+    }
+
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
@@ -177,10 +217,10 @@ const Contact = () => {
                     <Send className="text-green-500" size={28} />
                   </div>
                   <h3 className="text-white text-xl font-bold mb-2">
-                    ¡Mensaje enviado!
+                    ¡Cotización enviada!
                   </h3>
                   <p className="text-gray-400">
-                    Gracias por contactarnos. Te responderemos pronto.
+                    Gracias por contactarnos. Recibiremos tu solicitud en nuestro correo y te responderemos pronto.
                   </p>
                 </div>
               ) : (
@@ -236,7 +276,7 @@ const Contact = () => {
                       <option value="fotografia" className="bg-black">
                         Sesión Fotográfica
                       </option>
-                      <option value="videoclip" className="bg-black">
+                      <option value="videoclip-musical" className="bg-black">
                         Videoclip Musical
                       </option>
                       <option value="makeoff" className="bg-black">
@@ -276,10 +316,20 @@ const Contact = () => {
                     ) : (
                       <>
                         <Send size={18} />
-                        Enviar Mensaje
+                        Enviar Cotización
                       </>
                     )}
                   </button>
+
+                  {submitError ? (
+                    <p className="mt-4 text-sm text-red-400">
+                      {submitError}
+                    </p>
+                  ) : null}
+
+                  <p className="mt-4 text-xs text-gray-500">
+                    Esta solicitud se envía directamente a nuestro correo de producción.
+                  </p>
                 </>
               )}
             </form>
