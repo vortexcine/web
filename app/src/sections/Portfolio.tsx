@@ -39,8 +39,10 @@ const Portfolio = () => {
   const openProjectModal = (project: Project, originElement?: HTMLElement) => {
     if (originElement) {
       const rect = originElement.getBoundingClientRect();
-      const x = ((rect.left + rect.width / 2) / window.innerWidth) * 100;
-      const y = ((rect.top + rect.height / 2) / window.innerHeight) * 100;
+      const xRaw = ((rect.left + rect.width / 2) / window.innerWidth) * 100;
+      const yRaw = ((rect.top + rect.height / 2) / window.innerHeight) * 100;
+      const x = Math.min(95, Math.max(5, xRaw));
+      const y = Math.min(95, Math.max(5, yRaw));
       setModalOrigin({ x, y });
     } else {
       setModalOrigin({ x: 50, y: 50 });
@@ -372,11 +374,11 @@ const Portfolio = () => {
           <DialogContent
             showCloseButton
             style={{ transformOrigin: `${modalOrigin.x}% ${modalOrigin.y}%` }}
-            className="portfolio-modal-zoom h-[96vh] w-[98vw] max-w-[98vw] gap-0 border-white/15 bg-black/92 p-0 overflow-hidden sm:max-w-[98vw]"
+            className="portfolio-modal-zoom !top-0 !left-0 !translate-x-0 !translate-y-0 !h-screen !w-screen !max-w-none !rounded-none !border-0 !bg-black/95 !p-0 overflow-hidden sm:!max-w-none"
           >
             {selectedProject ? (
               <>
-                <div className="relative h-[calc(96vh-84px)] bg-black/85">
+                <div className="relative h-full bg-black/90">
                   <div className="absolute inset-y-0 left-0 z-10 flex items-center pl-4">
                     <Button
                       type="button"
@@ -412,17 +414,20 @@ const Portfolio = () => {
                     className="w-full h-full object-contain"
                   />
 
-                  <div className="absolute bottom-3 left-1/2 -translate-x-1/2 rounded-full border border-white/15 bg-black/60 px-3 py-1 text-xs text-gray-200">
+                  <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black/85 via-black/40 to-transparent" />
+
+                  <div className="absolute left-1/2 bottom-14 -translate-x-1/2 rounded-full border border-white/15 bg-black/60 px-3 py-1 text-xs text-gray-200">
                     {selectedIndex + 1} / {filteredProjects.length}
                   </div>
-                </div>
-                <div className="px-5 py-4 border-t border-white/10 bg-black/75">
-                  <DialogTitle className="text-white text-xl font-bold">
-                    {selectedProject.title}
-                  </DialogTitle>
-                  <DialogDescription className="text-[#A855F7] mt-1 text-sm font-medium uppercase tracking-wide">
-                    {selectedProject.category}
-                  </DialogDescription>
+
+                  <div className="absolute left-5 right-5 bottom-4 md:left-8 md:right-8">
+                    <DialogTitle className="text-white text-xl md:text-2xl font-bold drop-shadow-[0_2px_12px_rgba(0,0,0,0.55)]">
+                      {selectedProject.title}
+                    </DialogTitle>
+                    <DialogDescription className="text-[#C084FC] mt-1 text-sm font-medium uppercase tracking-wide drop-shadow-[0_2px_10px_rgba(0,0,0,0.55)]">
+                      {selectedProject.category}
+                    </DialogDescription>
+                  </div>
                 </div>
               </>
             ) : null}
