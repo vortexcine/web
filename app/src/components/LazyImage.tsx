@@ -8,64 +8,55 @@ type LazyImageProps = ImgHTMLAttributes<HTMLImageElement> & {
 
 const LazyImage = ({ className, src, onLoad, style, revealDelayMs = 0, ...props }: LazyImageProps) => {
   const [isLoaded, setIsLoaded] = useState(false);
-  const [isInView, setIsInView] = useState(false);
+  const [hasEnteredView, setHasEnteredView] = useState(false);
   const loadTimerRef = useRef<number | null>(null);
   const imgRef = useRef<HTMLImageElement | null>(null);
 
-  const revealImage = () => {
+  const markLoaded = () => {
     if (loadTimerRef.current !== null) {
       window.clearTimeout(loadTimerRef.current);
     }
 
-    // Double RAF + slight delay ensures transition starts from initial state
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        loadTimerRef.current = window.setTimeout(() => {
-          setIsLoaded(true);
-        }, 90);
-      });
-    });
+    // Small delay keeps the cinematic transition perceptible even on cache hits
+    loadTimerRef.current = window.setTimeout(() => {
+      setIsLoaded(true);
+    }, 60);
   };
 
   useEffect(() => {
     setIsLoaded(false);
-    setIsInView(false);
-
-    const image = imgRef.current;
-    if (image && image.complete && image.naturalWidth > 0) {
-      // No reveal here: only reveal when inView triggers
-    }
+    setHasEnteredView(false);
   }, [src]);
 
   useEffect(() => {
     const image = imgRef.current;
     if (!image) return;
 
-    let hasRevealed = false;
     const observer = new IntersectionObserver(
       (entries) => {
         const entry = entries[0];
-        if (entry?.isIntersecting && !hasRevealed) {
-          setIsInView(false); // reset
-          setTimeout(() => {
-            setIsInView(true);
-            // Only reveal if loaded
-            if (image.complete && image.naturalWidth > 0) {
-              revealImage();
-            }
-          }, 10);
-          hasRevealed = true;
+        if (entry?.isIntersecting) {
+          setHasEnteredView(true);
+          observer.disconnect();
         }
       },
       {
-        threshold: 0.15,
-        rootMargin: '120px 0px -5% 0px',
+        threshold: 0.2,
+        // Trigger close to the viewport so animation is visible to the user
+        rootMargin: '0px 0px -8% 0px',
       }
     );
 
     observer.observe(image);
 
     return () => observer.disconnect();
+  }, [src]);
+
+  useEffect(() => {
+    const image = imgRef.current;
+    if (image && image.complete && image.naturalWidth > 0) {
+      markLoaded();
+    }
   }, [src]);
 
   useEffect(() => {
@@ -85,8 +76,7 @@ const LazyImage = ({ className, src, onLoad, style, revealDelayMs = 0, ...props 
         '--lazy-delay': `${Math.max(0, revealDelayMs)}ms`,
       } as CSSProperties}
       onLoad={(event) => {
-        // Only reveal if inView is true
-        if (isInView) revealImage();
+        markLoaded();
         onLoad?.(event);
       }}
       onError={() => {
@@ -96,8 +86,8 @@ const LazyImage = ({ className, src, onLoad, style, revealDelayMs = 0, ...props 
       ref={imgRef}
       className={cn(
         'lazy-image-fade',
-        isInView && 'lazy-image-fade-inview',
-        isLoaded && isInView && 'lazy-image-fade-loaded',
+        hasEnteredView && 'lazy-image-fade-inview',
+        hasEnteredView && isLoaded && 'lazy-image-fade-loaded',
         className
       )}
     />
