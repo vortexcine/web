@@ -33,69 +33,69 @@ const Team = () => {
     {
       name: 'Ariel Aguilera',
       role: 'Director de Fotografía / Operador de Cámara',
-      imageFile: 'Ariel Aguilera - Director de Fotografía _ Operador de Cámara .jpeg',
+      imageFile: 'ariel-aguilera-director-de-fotografia-operador-de-camara.webp',
     },
     {
       name: 'Carlos Cruces',
       role: 'Productor Comercial',
-      imageFile: 'Carlos Cruces - Productor Comercial.jpeg',
+      imageFile: 'carlos-cruces-productor-comercial.webp',
     },
     {
       name: 'Cesar Abarca',
       role: 'Founder / Productor ejecutivo / Director',
-      imageFile: 'Cesar Abarca - Founder _ Productor ejecutivo _ Director.jpeg',
+      imageFile: 'cesar-abarca-founder-productor-ejecutivo-director.webp',
     },
     {
       name: 'Crhistian Bustamante',
-      role: 'Sonido directo / Asistente de Dirección dirección',
-      imageFile: 'Crhistian Bustamante - Sonido directo _ Asistente de Dirección dirección.JPG',
+      role: 'Sonido directo / Asistente de Dirección',
+      imageFile: 'christian-bustamante-sonido-directo-asistente-de-direccion.webp',
     },
     {
       name: 'Elizabeth Ibarra',
       role: 'Asistente de Producción / Styling',
-      imageFile: 'elizabeth-ibarra-styling.jpeg',
+      imageFile: 'elizabeth-ibarra-asistente-de-produccion-styling.webp',
     },
     {
       name: 'Francisco Berrios',
       role: 'Jefe Gaffer y electrico',
-      imageFile: 'francisco-berrios-gaffer-electrico.jpg',
+      imageFile: 'francisco-berrios-gaffer-electrico.webp',
     },
     {
       name: 'Francisca Venegas',
       role: 'Directora Creativa / Guionista',
-      imageFile: 'Francisca Venegas - Directora Creativa _ Guionista.jpg',
+      imageFile: 'francisca-venegas-directora-creativa-guionista.webp',
     },
     {
       name: 'Joaquín Campos',
       role: 'Director de Fotografía / Postproductor',
-      imageFile: 'Joaquín Campos - Director de Fotografía _ Postproductor.jpeg',
+      imageFile: 'joaquin-campos-director-de-fotografia-postproductor.webp',
     },
     {
       name: 'Luis Tobar',
       role: 'Operador de Cámara',
-      imageFile: 'Luis Tobar - Operador de Cámara.jpeg',
+      imageFile: 'luis-tobar-operador-de-camara.webp',
     },
     {
       name: 'Nichole Sepúlveda',
       role: 'Postproductora',
-      imageFile: 'Nichole Sepúlveda - Postproductora.jpg',
+      imageFile: 'nichole-sepulveda-postproductora.webp',
     },
     {
       name: 'Santiago Salazar',
       role: 'Productor General',
-      imageFile: 'Santiago Salazar - Productor General.jpg',
+      imageFile: 'santiago-salazar-productor-general.webp',
     },
     {
       name: 'Vicente Cortés',
       role: 'Director de Arte / Asistente de Producción',
-      imageFile: 'Vicente Cortés - Director de Arte _ Asistente de Producción .JPG',
+      imageFile: 'vicente-cortes-director-de-arte-asistente-de-produccion.webp',
     },
   ];
 
   const team: TeamMember[] = teamMembers.map((member) => ({
     name: member.name,
     role: member.role,
-    image: `${baseUrl}images/team/${encodeURIComponent(member.imageFile)}`,
+    image: `${baseUrl}images/team/${member.imageFile}`,
   }));
 
   return (

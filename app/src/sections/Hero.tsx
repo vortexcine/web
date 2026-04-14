@@ -39,7 +39,7 @@ const Hero = () => {
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black" />
         <img
-          src={encodeURI(`/web/images/portfolio/stills/Gangrena(1).jpg`)}
+          src={encodeURI(`/web/images/portfolio/stills/Gangrena(1).webp`)}
           alt="Background"
           loading="eager"
           decoding="async"
