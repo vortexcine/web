@@ -242,7 +242,7 @@ const Portfolio = () => {
           </h2>
 
           <p className="reveal stagger-2 text-gray-400 max-w-2xl mx-auto">
-            Una selección de nuestros trabajos Audiovisuales,
+            Una selección de nuestros ultimos trabajos Audiovisuales,
             fotografía artística y detrás de cámaras.
           </p>
         </div>
@@ -424,7 +424,7 @@ const Portfolio = () => {
                       src={getAssetUrl(selectedProject.image)}
                       alt={selectedProject.title}
                       decoding="async"
-                      className="max-w-full max-h-full object-contain"
+                      className="max-w-[70vw] max-h-[70vh] object-contain"
                     />
                   </div>
 

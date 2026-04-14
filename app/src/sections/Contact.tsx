@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Mail, Phone, MapPin, Send, Instagram, Youtube, Film } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, Instagram } from 'lucide-react';
 
 const projectLabels: Record<string, string> = {
   videoclip: 'Videoclip Cinematográfico',
@@ -113,9 +113,7 @@ const Contact = () => {
   ];
 
   const socialLinks = [
-    { icon: Instagram, label: 'Instagram', href: '#' },
-    { icon: Youtube, label: 'YouTube', href: '#' },
-    { icon: Film, label: 'Vimeo', href: '#' },
+    { icon: Instagram, label: 'Instagram', href: 'https://www.instagram.com/vortexstudio.cl/' },
   ];
 
   return (
@@ -176,6 +174,8 @@ const Contact = () => {
                   <a
                     key={social.label}
                     href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="w-11 h-11 rounded-xl bg-white/5 hover:bg-[#A855F7] border border-white/10 hover:border-[#A855F7] flex items-center justify-center transition-all"
                     aria-label={social.label}
                   >

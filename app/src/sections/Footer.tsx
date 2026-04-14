@@ -1,4 +1,4 @@
-import { Instagram, Youtube, Film, Mail, ArrowUp } from 'lucide-react';
+import { Instagram, Mail, ArrowUp } from 'lucide-react';
 import { getAssetUrl } from '@/lib/utils';
 import LazyImage from '@/components/LazyImage';
 
@@ -42,7 +42,7 @@ const Footer = () => {
     <footer className="relative bg-black border-t border-white/10">
       {/* Main Footer */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
           {/* Brand Column */}
           <div className="lg:col-span-1">
             <a href="#inicio" className="flex items-center gap-3 mb-5">
@@ -65,20 +65,6 @@ const Footer = () => {
                 aria-label="Instagram"
               >
                 <Instagram size={16} />
-              </a>
-              <a
-                href="#"
-                className="w-9 h-9 rounded-lg bg-white/5 hover:bg-[#A855F7] flex items-center justify-center transition-colors"
-                aria-label="YouTube"
-              >
-                <Youtube size={16} />
-              </a>
-              <a
-                href="#"
-                className="w-9 h-9 rounded-lg bg-white/5 hover:bg-[#A855F7] flex items-center justify-center transition-colors"
-                aria-label="Vimeo"
-              >
-                <Film size={16} />
               </a>
               <a
                 href="mailto:Productora@vortexcine.com"
@@ -128,26 +114,6 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Newsletter */}
-          <div>
-            <h3 className="text-white font-semibold mb-5">Newsletter</h3>
-            <p className="text-gray-400 text-sm mb-4">
-              Suscríbete para recibir noticias sobre nuestros últimos proyectos.
-            </p>
-            <form className="flex gap-2">
-              <input
-                type="email"
-                placeholder="Tu email"
-                className="flex-1 bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-[#A855F7] transition-colors"
-              />
-              <button
-                type="submit"
-                className="bg-[#A855F7] hover:bg-[#7C3AED] text-white px-4 py-2.5 rounded-lg transition-colors"
-              >
-                <Mail size={16} />
-              </button>
-            </form>
-          </div>
         </div>
       </div>
 
