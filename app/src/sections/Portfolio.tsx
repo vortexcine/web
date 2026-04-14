@@ -32,8 +32,22 @@ const Portfolio = () => {
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const [activeFilter, setActiveFilter] = useState<string>('todos');
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [modalOrigin, setModalOrigin] = useState({ x: 50, y: 50 });
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
+
+  const openProjectModal = (project: Project, originElement?: HTMLElement) => {
+    if (originElement) {
+      const rect = originElement.getBoundingClientRect();
+      const x = ((rect.left + rect.width / 2) / window.innerWidth) * 100;
+      const y = ((rect.top + rect.height / 2) / window.innerHeight) * 100;
+      setModalOrigin({ x, y });
+    } else {
+      setModalOrigin({ x: 50, y: 50 });
+    }
+
+    setSelectedProject(project);
+  };
 
   const updateScrollState = () => {
     const viewport = scrollAreaRef.current?.querySelector('[data-slot="scroll-area-viewport"]');
@@ -148,6 +162,24 @@ const Portfolio = () => {
       ? projects
       : projects.filter((p) => p.type === activeFilter);
 
+  const selectedIndex = selectedProject
+    ? filteredProjects.findIndex((project) => project.id === selectedProject.id)
+    : -1;
+  const hasPrevProject = selectedIndex > 0;
+  const hasNextProject = selectedIndex >= 0 && selectedIndex < filteredProjects.length - 1;
+
+  const moveModalProject = (direction: 'prev' | 'next') => {
+    if (selectedIndex < 0) return;
+
+    const nextIndex = direction === 'next' ? selectedIndex + 1 : selectedIndex - 1;
+    const target = filteredProjects[nextIndex];
+    if (!target) return;
+
+    // Centered origin avoids awkward jump when switching images inside modal
+    setModalOrigin({ x: 50, y: 50 });
+    setSelectedProject(target);
+  };
+
   const getRevealDelay = (index: number) => {
     const row = index % 3;
     const col = Math.floor(index / 3);
@@ -164,6 +196,25 @@ const Portfolio = () => {
       videoclipFirstIds.add(project.id);
     }
   });
+
+  useEffect(() => {
+    if (!selectedProject) return;
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'ArrowRight' && hasNextProject) {
+        event.preventDefault();
+        moveModalProject('next');
+      }
+
+      if (event.key === 'ArrowLeft' && hasPrevProject) {
+        event.preventDefault();
+        moveModalProject('prev');
+      }
+    };
+
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [selectedProject, hasNextProject, hasPrevProject, selectedIndex, activeFilter]);
 
   return (
     <section
@@ -259,11 +310,11 @@ const Portfolio = () => {
                   className="group relative overflow-hidden rounded-xl aspect-[4/3] w-[240px] md:w-[280px] xl:w-[300px] cursor-pointer"
                   role="button"
                   tabIndex={0}
-                  onClick={() => setSelectedProject(project)}
+                  onClick={(event) => openProjectModal(project, event.currentTarget)}
                   onKeyDown={(event) => {
                     if (event.key === 'Enter' || event.key === ' ') {
                       event.preventDefault();
-                      setSelectedProject(project);
+                      openProjectModal(project, event.currentTarget);
                     }
                   }}
                 >
@@ -320,17 +371,50 @@ const Portfolio = () => {
         >
           <DialogContent
             showCloseButton
-            className="max-w-[min(96vw,1440px)] border-white/15 bg-black/90 p-0 overflow-hidden"
+            style={{ transformOrigin: `${modalOrigin.x}% ${modalOrigin.y}%` }}
+            className="portfolio-modal-zoom h-[96vh] w-[98vw] max-w-[98vw] gap-0 border-white/15 bg-black/92 p-0 overflow-hidden sm:max-w-[98vw]"
           >
             {selectedProject ? (
               <>
-                <div className="relative bg-black/80">
+                <div className="relative h-[calc(96vh-84px)] bg-black/85">
+                  <div className="absolute inset-y-0 left-0 z-10 flex items-center pl-4">
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="icon"
+                      aria-label="Imagen anterior"
+                      disabled={!hasPrevProject}
+                      onClick={() => moveModalProject('prev')}
+                      className="size-11 rounded-full border border-white/15 bg-black/45 text-white backdrop-blur-md transition-all hover:bg-black/75 disabled:opacity-35"
+                    >
+                      <ChevronLeft size={20} />
+                    </Button>
+                  </div>
+
+                  <div className="absolute inset-y-0 right-0 z-10 flex items-center pr-4">
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="icon"
+                      aria-label="Imagen siguiente"
+                      disabled={!hasNextProject}
+                      onClick={() => moveModalProject('next')}
+                      className="size-11 rounded-full border border-white/15 bg-black/45 text-white backdrop-blur-md transition-all hover:bg-black/75 disabled:opacity-35"
+                    >
+                      <ChevronRight size={20} />
+                    </Button>
+                  </div>
+
                   <img
                     src={getAssetUrl(selectedProject.image)}
                     alt={selectedProject.title}
                     decoding="async"
-                    className="w-full max-h-[86vh] object-contain"
+                    className="w-full h-full object-contain"
                   />
+
+                  <div className="absolute bottom-3 left-1/2 -translate-x-1/2 rounded-full border border-white/15 bg-black/60 px-3 py-1 text-xs text-gray-200">
+                    {selectedIndex + 1} / {filteredProjects.length}
+                  </div>
                 </div>
                 <div className="px-5 py-4 border-t border-white/10 bg-black/75">
                   <DialogTitle className="text-white text-xl font-bold">
