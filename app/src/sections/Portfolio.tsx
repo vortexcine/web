@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
-import { Play, ExternalLink } from 'lucide-react';
+import { Play, ExternalLink, ChevronLeft, ChevronRight } from 'lucide-react';
 import { getAssetUrl } from '@/lib/utils';
 import LazyImage from '@/components/LazyImage';
+import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
+import { Button } from '@/components/ui/button';
 
 interface Project {
   id: number;
@@ -26,27 +28,36 @@ const cleanFileName = (filename: string): string => {
 
 const Portfolio = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
+  const scrollAreaRef = useRef<HTMLDivElement>(null);
   const [activeFilter, setActiveFilter] = useState<string>('todos');
-  const [gridColumns, setGridColumns] = useState(1);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
 
-  useEffect(() => {
-    const updateColumns = () => {
-      if (window.innerWidth >= 1280) {
-        setGridColumns(4);
-      } else if (window.innerWidth >= 1024) {
-        setGridColumns(3);
-      } else if (window.innerWidth >= 768) {
-        setGridColumns(2);
-      } else {
-        setGridColumns(1);
-      }
-    };
+  const updateScrollState = () => {
+    const viewport = scrollAreaRef.current?.querySelector('[data-slot="scroll-area-viewport"]');
+    if (!(viewport instanceof HTMLDivElement)) {
+      setCanScrollLeft(false);
+      setCanScrollRight(false);
+      return;
+    }
 
-    updateColumns();
-    window.addEventListener('resize', updateColumns);
+    const { scrollLeft, scrollWidth, clientWidth } = viewport;
+    setCanScrollLeft(scrollLeft > 8);
+    setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 8);
+  };
 
-    return () => window.removeEventListener('resize', updateColumns);
-  }, []);
+  const scrollPortfolio = (direction: 'left' | 'right') => {
+    const viewport = scrollAreaRef.current?.querySelector('[data-slot="scroll-area-viewport"]');
+    if (!(viewport instanceof HTMLDivElement)) {
+      return;
+    }
+
+    const amount = Math.max(viewport.clientWidth * 0.82, 280);
+    viewport.scrollBy({
+      left: direction === 'right' ? amount : -amount,
+      behavior: 'smooth',
+    });
+  };
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -64,6 +75,30 @@ const Portfolio = () => {
     elements?.forEach((el) => observer.observe(el));
 
     return () => observer.disconnect();
+  }, [activeFilter]);
+
+  useEffect(() => {
+    const viewport = scrollAreaRef.current?.querySelector('[data-slot="scroll-area-viewport"]');
+    if (!(viewport instanceof HTMLDivElement)) {
+      return;
+    }
+
+    const handleScroll = () => updateScrollState();
+    const handleResize = () => updateScrollState();
+
+    updateScrollState();
+    viewport.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', handleResize);
+
+    const frame = window.requestAnimationFrame(() => {
+      updateScrollState();
+    });
+
+    return () => {
+      viewport.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleResize);
+      window.cancelAnimationFrame(frame);
+    };
   }, [activeFilter]);
 
   // Proyectos organizados por categoría (usando nombres exactos y codificación de cada segmento)
@@ -112,9 +147,9 @@ const Portfolio = () => {
       : projects.filter((p) => p.type === activeFilter);
 
   const getRevealDelay = (index: number) => {
-    const row = Math.floor(index / gridColumns);
-    const col = index % gridColumns;
-    return row * 130 + col * 80;
+    const row = index % 3;
+    const col = Math.floor(index / 3);
+    return col * 85 + row * 95;
   };
 
   const videoclipFirstIds = new Set<number>();
@@ -172,44 +207,85 @@ const Portfolio = () => {
           ))}
         </div>
 
-        {/* Projects Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-          {filteredProjects.map((project, index) => (
-            <div
-              key={project.id}
-              className={`reveal stagger-${(index % 4) + 1} group relative overflow-hidden rounded-xl aspect-[4/3] cursor-pointer`}
+        {/* Projects Gallery */}
+        <div className="reveal stagger-4 relative rounded-[28px] border border-white/10 bg-white/[0.03] p-3 md:p-4 shadow-[0_24px_80px_rgba(0,0,0,0.28)]">
+          <div
+            className={`pointer-events-none absolute inset-y-4 left-3 z-10 hidden w-16 rounded-l-[22px] bg-gradient-to-r from-[rgba(6,2,12,0.82)] via-[rgba(124,58,237,0.16)] to-transparent transition-opacity duration-300 md:block ${
+              canScrollLeft ? 'opacity-100' : 'opacity-0'
+            }`}
+          />
+
+          <div
+            className={`pointer-events-none absolute inset-y-4 right-3 z-10 hidden w-16 rounded-r-[22px] bg-gradient-to-l from-[rgba(6,2,12,0.82)] via-[rgba(124,58,237,0.16)] to-transparent transition-opacity duration-300 md:block ${
+              canScrollRight ? 'opacity-100' : 'opacity-0'
+            }`}
+          />
+
+          <div className="pointer-events-none absolute inset-y-0 left-0 z-20 hidden items-center pl-4 md:flex">
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon"
+              aria-label="Desplazar portafolio a la izquierda"
+              onClick={() => scrollPortfolio('left')}
+              disabled={!canScrollLeft}
+              className="pointer-events-auto size-10 rounded-full border border-white/10 bg-black/55 text-white backdrop-blur-md transition-all hover:bg-black/75 disabled:opacity-0"
             >
-              {/* Image */}
-              <LazyImage
-                src={getAssetUrl(project.image)}
-                alt={project.title}
-                loading="lazy"
-                decoding="async"
-                revealDelayMs={getRevealDelay(index)}
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-              />
+              <ChevronLeft size={18} />
+            </Button>
+          </div>
 
-              {/* Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 z-20 hidden items-center pr-4 md:flex">
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon"
+              aria-label="Desplazar portafolio a la derecha"
+              onClick={() => scrollPortfolio('right')}
+              disabled={!canScrollRight}
+              className="pointer-events-auto size-10 rounded-full border border-white/10 bg-black/55 text-white backdrop-blur-md transition-all hover:bg-black/75 disabled:opacity-0"
+            >
+              <ChevronRight size={18} />
+            </Button>
+          </div>
 
-              {/* Content */}
-              <div className="absolute inset-0 flex flex-col justify-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <span className="text-[#A855F7] text-xs font-semibold uppercase tracking-wider mb-1">
-                  {project.category}
-                </span>
-                <h3 className="text-white text-lg font-bold">
-                  {project.title}
-                </h3>
-              </div>
+          <ScrollArea ref={scrollAreaRef} className="w-full whitespace-nowrap rounded-[22px]">
+            <div className="portfolio-scroll-grid grid grid-flow-col grid-rows-3 gap-4 pb-4">
+              {filteredProjects.map((project, index) => (
+                <div
+                  key={project.id}
+                  className="group relative overflow-hidden rounded-xl aspect-[4/3] w-[240px] md:w-[280px] xl:w-[300px] cursor-pointer"
+                >
+                  <LazyImage
+                    src={getAssetUrl(project.image)}
+                    alt={project.title}
+                    loading="lazy"
+                    decoding="async"
+                    revealDelayMs={getRevealDelay(index)}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
 
-              {/* Play Icon */}
-              {project.type === 'videoclip' && videoclipFirstIds.has(project.id) && (
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-[#A855F7]/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:scale-110">
-                  <Play size={20} fill="white" className="text-white ml-1" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+                  <div className="absolute inset-0 flex flex-col justify-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <span className="text-[#A855F7] text-xs font-semibold uppercase tracking-wider mb-1">
+                      {project.category}
+                    </span>
+                    <h3 className="text-white text-lg font-bold whitespace-normal">
+                      {project.title}
+                    </h3>
+                  </div>
+
+                  {project.type === 'videoclip' && videoclipFirstIds.has(project.id) && (
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-[#A855F7]/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:scale-110">
+                      <Play size={20} fill="white" className="text-white ml-1" />
+                    </div>
+                  )}
                 </div>
-              )}
+              ))}
             </div>
-          ))}
+            <ScrollBar orientation="horizontal" className="mt-1" />
+          </ScrollArea>
         </div>
 
         {/* View All Button */}

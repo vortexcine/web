@@ -185,6 +185,11 @@ body {
   transform: scale(1);
 }
 
+.portfolio-scroll-grid {
+  width: max-content;
+  padding-right: 0.25rem;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .lazy-image-fade {
     filter: none;
