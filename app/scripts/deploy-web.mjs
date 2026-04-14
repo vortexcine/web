@@ -11,6 +11,10 @@ const distDir = path.join(appRoot, 'dist');
 const webDir = path.join(repoRoot, 'web');
 const rootIndex = path.join(repoRoot, 'index.html');
 const distIndex = path.join(distDir, 'index.html');
+const legacyRootDirs = [
+  path.join(repoRoot, 'assets'),
+  path.join(repoRoot, 'images'),
+];
 
 if (!existsSync(distDir)) {
   throw new Error('No existe dist/. Ejecuta primero la build.');
@@ -26,5 +30,11 @@ if (existsSync(webDir)) {
 
 cpSync(distDir, webDir, { recursive: true });
 cpSync(distIndex, rootIndex);
+
+for (const dir of legacyRootDirs) {
+  if (existsSync(dir)) {
+    rmSync(dir, { recursive: true, force: true });
+  }
+}
 
 console.log('Deploy listo: web/ y index.html sincronizados desde app/dist');
