@@ -6,25 +6,6 @@ interface TeamMember {
   image: string;
 }
 
-// Función para extraer nombre y cargo del nombre de archivo
-const parseTeamMember = (filename: string): { name: string; role: string } => {
-  // Remover extensión
-  const namePart = filename.replace(/\.[^/.]+$/, '');
-  // Separar por " - "
-  const parts = namePart.split(' - ');
-  
-  if (parts.length >= 2) {
-    const name = parts[0].trim();
-    // El resto son los cargos, unidos por " / " o " _ "
-    let role = parts.slice(1).join(' - ');
-    // Reemplazar " _ " por " / " para separar cargos múltiples
-    role = role.replace(/\s*_\s*/g, ' / ');
-    return { name, role };
-  }
-  
-  return { name: namePart, role: 'Equipo Vortex' };
-};
-
 const Team = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
 
@@ -46,50 +27,76 @@ const Team = () => {
     return () => observer.disconnect();
   }, []);
 
-  type TeamFile =
-    | string
-    | {
-        label: string;
-        file: string;
-      };
+  const baseUrl = import.meta.env.BASE_URL ?? '/';
 
-  // Lista de archivos del equipo
-  const teamFiles: TeamFile[] = [
-    'Ariel Aguilera - Director de Fotografía _ Operador de Cámara .jpeg',
-    'Carlos Cruces - Productor Comercial.jpeg',
-    'Cesar Abarca - Founder _ Productor ejecutivo _ Director.jpeg',
-    'Crhistian Bustamante - Sonido directo _ Asistente de Dirección dirección.JPG',
+  const teamMembers = [
     {
-      label: 'Elizabeth Ibarra - Asistente de Produccion _ Styling.jpeg',
-      file: 'elizabeth-ibarra-styling.jpeg',
+      name: 'Ariel Aguilera',
+      role: 'Director de Fotografía / Operador de Cámara',
+      imageFile: 'Ariel Aguilera - Director de Fotografía _ Operador de Cámara .jpeg',
     },
     {
-      label: 'Francisco Berrios - Jefe Gaffer y electrico.jpg',
-      file: 'francisco-berrios-gaffer-electrico.jpg',
+      name: 'Carlos Cruces',
+      role: 'Productor Comercial',
+      imageFile: 'Carlos Cruces - Productor Comercial.jpeg',
     },
-    'Francisca Venegas - Directora Creativa _ Guionista.jpg',
-    'Joaquín Campos - Director de Fotografía _ Postproductor.jpeg',
-    'Luis Tobar - Operador de Cámara.jpeg',
-    'Nichole Sepúlveda - Postproductora.jpg',
-    'Santiago Salazar - Productor General.jpg',
-    'Vicente Cortés - Director de Arte _ Asistente de Producción .JPG',
+    {
+      name: 'Cesar Abarca',
+      role: 'Founder / Productor ejecutivo / Director',
+      imageFile: 'Cesar Abarca - Founder _ Productor ejecutivo _ Director.jpeg',
+    },
+    {
+      name: 'Crhistian Bustamante',
+      role: 'Sonido directo / Asistente de Dirección dirección',
+      imageFile: 'Crhistian Bustamante - Sonido directo _ Asistente de Dirección dirección.JPG',
+    },
+    {
+      name: 'Elizabeth Ibarra',
+      role: 'Asistente de Producción / Styling',
+      imageFile: 'elizabeth-ibarra-styling.jpeg',
+    },
+    {
+      name: 'Francisco Berrios',
+      role: 'Jefe Gaffer y electrico',
+      imageFile: 'francisco-berrios-gaffer-electrico.jpg',
+    },
+    {
+      name: 'Francisca Venegas',
+      role: 'Directora Creativa / Guionista',
+      imageFile: 'Francisca Venegas - Directora Creativa _ Guionista.jpg',
+    },
+    {
+      name: 'Joaquín Campos',
+      role: 'Director de Fotografía / Postproductor',
+      imageFile: 'Joaquín Campos - Director de Fotografía _ Postproductor.jpeg',
+    },
+    {
+      name: 'Luis Tobar',
+      role: 'Operador de Cámara',
+      imageFile: 'Luis Tobar - Operador de Cámara.jpeg',
+    },
+    {
+      name: 'Nichole Sepúlveda',
+      role: 'Postproductora',
+      imageFile: 'Nichole Sepúlveda - Postproductora.jpg',
+    },
+    {
+      name: 'Santiago Salazar',
+      role: 'Productor General',
+      imageFile: 'Santiago Salazar - Productor General.jpg',
+    },
+    {
+      name: 'Vicente Cortés',
+      role: 'Director de Arte / Asistente de Producción',
+      imageFile: 'Vicente Cortés - Director de Arte _ Asistente de Producción .JPG',
+    },
   ];
 
-  const team: TeamMember[] = teamFiles.map((teamFile) => {
-    const file = typeof teamFile === 'string' ? teamFile : teamFile.label;
-    const imageFile = typeof teamFile === 'string' ? teamFile : teamFile.file;
-    const { name, role } = parseTeamMember(file);
-    return {
-      name,
-      role,
-      image: `/web/images/team/${imageFile}`,
-    };
-  });
-
-  const encodePath = (path: string) => {
-    // Codificar cada parte del path correctamente
-    return path.split('/').map(part => encodeURIComponent(part)).join('/');
-  };
+  const team: TeamMember[] = teamMembers.map((member) => ({
+    name: member.name,
+    role: member.role,
+    image: `${baseUrl}images/team/${encodeURIComponent(member.imageFile)}`,
+  }));
 
   return (
     <section
@@ -131,7 +138,7 @@ const Team = () => {
                 {/* Image */}
                 <div className="aspect-[3/4] overflow-hidden bg-gray-800">
                   <img
-                    src={encodePath(member.image)}
+                    src={member.image}
                     alt={member.name}
                     loading="lazy"
                     decoding="async"
