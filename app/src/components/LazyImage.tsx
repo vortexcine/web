@@ -37,7 +37,9 @@ const LazyImage = ({ className, src, onLoad, style, revealDelayMs = 0, ...props 
         const entry = entries[0];
         if (entry?.isIntersecting) {
           setHasEnteredView(true);
-          observer.disconnect();
+        } else {
+          // Reset when leaving viewport so transition plays again on re-entry
+          setHasEnteredView(false);
         }
       },
       {
