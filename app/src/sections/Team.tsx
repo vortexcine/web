@@ -1,5 +1,6 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { getAssetUrl } from '@/lib/utils';
+import LazyImage from '@/components/LazyImage';
 
 interface TeamMember {
   name: string;
@@ -9,6 +10,26 @@ interface TeamMember {
 
 const Team = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
+  const [gridColumns, setGridColumns] = useState(1);
+
+  useEffect(() => {
+    const updateColumns = () => {
+      if (window.innerWidth >= 1280) {
+        setGridColumns(4);
+      } else if (window.innerWidth >= 1024) {
+        setGridColumns(3);
+      } else if (window.innerWidth >= 640) {
+        setGridColumns(2);
+      } else {
+        setGridColumns(1);
+      }
+    };
+
+    updateColumns();
+    window.addEventListener('resize', updateColumns);
+
+    return () => window.removeEventListener('resize', updateColumns);
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -97,6 +118,12 @@ const Team = () => {
     image: getAssetUrl(`/images/team/${member.imageFile}`),
   }));
 
+  const getRevealDelay = (index: number) => {
+    const row = Math.floor(index / gridColumns);
+    const col = index % gridColumns;
+    return row * 130 + col * 80;
+  };
+
   return (
     <section
       id="equipo"
@@ -136,11 +163,12 @@ const Team = () => {
               <div className="relative overflow-hidden rounded-xl bg-white/5 border border-white/10 card-hover">
                 {/* Image */}
                 <div className="aspect-[3/4] overflow-hidden bg-gray-800">
-                  <img
+                  <LazyImage
                     src={member.image}
                     alt={member.name}
                     loading="lazy"
                     decoding="async"
+                    revealDelayMs={getRevealDelay(index)}
                     className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-105"
                   />
                 </div>

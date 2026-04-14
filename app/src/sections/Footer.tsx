@@ -1,5 +1,6 @@
 import { Instagram, Youtube, Film, Mail, ArrowUp } from 'lucide-react';
 import { getAssetUrl } from '@/lib/utils';
+import LazyImage from '@/components/LazyImage';
 
 const Footer = () => {
   const scrollToTop = () => {
@@ -45,7 +46,7 @@ const Footer = () => {
           {/* Brand Column */}
           <div className="lg:col-span-1">
             <a href="#inicio" className="flex items-center gap-3 mb-5">
-              <img
+              <LazyImage
                 src={getAssetUrl('/images/logo/logo.png')}
                 alt="Vortex Studio"
                 loading="lazy"

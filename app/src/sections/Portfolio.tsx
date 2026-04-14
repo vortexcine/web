@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Play, ExternalLink } from 'lucide-react';
 import { getAssetUrl } from '@/lib/utils';
+import LazyImage from '@/components/LazyImage';
 
 interface Project {
   id: number;
@@ -26,6 +27,26 @@ const cleanFileName = (filename: string): string => {
 const Portfolio = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [activeFilter, setActiveFilter] = useState<string>('todos');
+  const [gridColumns, setGridColumns] = useState(1);
+
+  useEffect(() => {
+    const updateColumns = () => {
+      if (window.innerWidth >= 1280) {
+        setGridColumns(4);
+      } else if (window.innerWidth >= 1024) {
+        setGridColumns(3);
+      } else if (window.innerWidth >= 768) {
+        setGridColumns(2);
+      } else {
+        setGridColumns(1);
+      }
+    };
+
+    updateColumns();
+    window.addEventListener('resize', updateColumns);
+
+    return () => window.removeEventListener('resize', updateColumns);
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -90,6 +111,12 @@ const Portfolio = () => {
       ? projects
       : projects.filter((p) => p.type === activeFilter);
 
+  const getRevealDelay = (index: number) => {
+    const row = Math.floor(index / gridColumns);
+    const col = index % gridColumns;
+    return row * 130 + col * 80;
+  };
+
   const videoclipFirstIds = new Set<number>();
   const seenVideoclipTitles = new Set<string>();
 
@@ -153,11 +180,12 @@ const Portfolio = () => {
               className={`reveal stagger-${(index % 4) + 1} group relative overflow-hidden rounded-xl aspect-[4/3] cursor-pointer`}
             >
               {/* Image */}
-              <img
+              <LazyImage
                 src={getAssetUrl(project.image)}
                 alt={project.title}
                 loading="lazy"
                 decoding="async"
+                revealDelayMs={getRevealDelay(index)}
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
               />
 
