@@ -76,7 +76,7 @@ const About = () => {
               <p>
                 Vortex Studio nació de la pasión compartida por el cine y la
                 música. Somos una productora audiovisual chilena conformada por un
-                equipo de 11 profesionales apasionados por contar historias a través
+                equipo de 12 profesionales apasionados por contar historias a través
                 de imágenes.
               </p>
               <p>
