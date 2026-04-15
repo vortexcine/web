@@ -96,7 +96,7 @@ const Team = () => {
       imageFile: 'luis-tobar-operador-de-camara.webp',
     },
     {
-      name: 'Nichole Sepúlveda',
+      name: 'Nicholle Sepúlveda',
       role: 'Postproductora',
       imageFile: 'nichole-sepulveda-postproductora.webp',
     },
