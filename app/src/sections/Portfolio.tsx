@@ -304,13 +304,13 @@ const Portfolio = () => {
         {/* Projects Gallery */}
         <div className="reveal stagger-4 relative rounded-[28px] border border-white/[0.06] bg-white/[0.02] p-3 md:p-4 shadow-[0_16px_52px_rgba(0,0,0,0.22)]">
           <div
-            className={`portfolio-edge-hint portfolio-edge-hint-left pointer-events-none absolute inset-y-2 left-3 z-10 hidden w-24 rounded-l-[22px] transition-opacity duration-300 md:block ${
+            className={`portfolio-edge-hint portfolio-edge-hint-left pointer-events-none absolute inset-y-0 left-0 z-10 hidden w-24 rounded-l-[28px] transition-opacity duration-300 md:block ${
               canScrollLeft ? 'opacity-100' : 'opacity-0'
             }`}
           />
 
           <div
-            className={`portfolio-edge-hint portfolio-edge-hint-right pointer-events-none absolute inset-y-2 right-3 z-10 hidden w-24 rounded-r-[22px] transition-opacity duration-300 md:block ${
+            className={`portfolio-edge-hint portfolio-edge-hint-right pointer-events-none absolute inset-y-0 right-0 z-10 hidden w-24 rounded-r-[28px] transition-opacity duration-300 md:block ${
               canScrollRight ? 'opacity-100' : 'opacity-0'
             }`}
           />
