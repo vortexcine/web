@@ -39,6 +39,8 @@ const Portfolio = () => {
 
   const videoclipLinks: Record<number, string> = {
     1: 'https://www.youtube.com/watch?v=nnS1EsLCMbM',
+    5: 'https://www.youtube.com/watch?v=n0LPv48Bfl0',
+    7: 'https://www.youtube.com/watch?v=q4VhLzVtJCk',
   };
 
   const getYouTubeEmbedUrl = (url: string) => {
@@ -377,7 +379,7 @@ const Portfolio = () => {
                     </h3>
                   </div>
 
-                  {project.type === 'videoclip' && videoclipFirstIds.has(project.id) && (
+                  {project.type === 'videoclip' && videoclipFirstIds.has(project.id) && Boolean(videoclipLinks[project.id]) && (
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-[#A855F7]/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:scale-110">
                       <Play size={20} fill="white" className="text-white ml-1" />
                     </div>
@@ -392,14 +394,15 @@ const Portfolio = () => {
         {/* View All Button */}
         <div className="reveal stagger-5 text-center mt-10">
           <a
-            href="https://www.canva.com/design/DAGkYk5wqvg/OYdtOjPEcWpjavyymeMriA/edit?utm_content=DAGkYk5wqvg&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-outline inline-flex items-center gap-2"
+            href="#"
+            aria-disabled="true"
+            onClick={(event) => event.preventDefault()}
+            className="btn-outline inline-flex items-center gap-2 opacity-50 pointer-events-none"
           >
             Ver Todo el Portafolio
             <ExternalLink size={16} />
           </a>
+          <p className="text-xs text-gray-500 mt-2">Disponible pronto</p>
         </div>
 
         <Dialog
