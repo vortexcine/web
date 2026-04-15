@@ -203,17 +203,29 @@ body {
 }
 
 .portfolio-edge-hint {
-  opacity: 0.85;
+  opacity: 0.95;
   mask-image: linear-gradient(to bottom, transparent 0%, black 18%, black 82%, transparent 100%);
   -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 18%, black 82%, transparent 100%);
 }
 
 .portfolio-edge-hint-left {
-  background: linear-gradient(to right, rgba(10, 4, 18, 0.52), rgba(124, 58, 237, 0.1), transparent 82%);
+  background: linear-gradient(
+    to right,
+    rgba(6, 2, 14, 0.72) 0%,
+    rgba(86, 38, 170, 0.34) 36%,
+    rgba(124, 58, 237, 0.14) 62%,
+    transparent 90%
+  );
 }
 
 .portfolio-edge-hint-right {
-  background: linear-gradient(to left, rgba(10, 4, 18, 0.52), rgba(124, 58, 237, 0.1), transparent 82%);
+  background: linear-gradient(
+    to left,
+    rgba(6, 2, 14, 0.72) 0%,
+    rgba(86, 38, 170, 0.34) 36%,
+    rgba(124, 58, 237, 0.14) 62%,
+    transparent 90%
+  );
 }
 
 @keyframes portfolio-modal-in {
