@@ -190,6 +190,32 @@ body {
   padding-right: 0.25rem;
 }
 
+.portfolio-scrollbar {
+  opacity: 0.65;
+}
+
+.portfolio-scrollbar [data-slot='scroll-area-thumb'] {
+  background: linear-gradient(90deg, rgba(124, 58, 237, 0.34), rgba(168, 85, 247, 0.48));
+}
+
+.portfolio-scrollbar:hover {
+  opacity: 0.82;
+}
+
+.portfolio-edge-hint {
+  opacity: 0.85;
+  mask-image: linear-gradient(to bottom, transparent 0%, black 18%, black 82%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 18%, black 82%, transparent 100%);
+}
+
+.portfolio-edge-hint-left {
+  background: linear-gradient(to right, rgba(10, 4, 18, 0.52), rgba(124, 58, 237, 0.1), transparent 82%);
+}
+
+.portfolio-edge-hint-right {
+  background: linear-gradient(to left, rgba(10, 4, 18, 0.52), rgba(124, 58, 237, 0.1), transparent 82%);
+}
+
 @keyframes portfolio-modal-in {
   0% {
     opacity: 0;

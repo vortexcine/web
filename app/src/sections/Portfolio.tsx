@@ -302,15 +302,15 @@ const Portfolio = () => {
         </div>
 
         {/* Projects Gallery */}
-        <div className="reveal stagger-4 relative rounded-[28px] border border-white/10 bg-white/[0.03] p-3 md:p-4 shadow-[0_24px_80px_rgba(0,0,0,0.28)]">
+        <div className="reveal stagger-4 relative rounded-[28px] border border-white/[0.06] bg-white/[0.02] p-3 md:p-4 shadow-[0_16px_52px_rgba(0,0,0,0.22)]">
           <div
-            className={`pointer-events-none absolute inset-y-4 left-3 z-10 hidden w-16 rounded-l-[22px] bg-gradient-to-r from-[rgba(6,2,12,0.82)] via-[rgba(124,58,237,0.16)] to-transparent transition-opacity duration-300 md:block ${
+            className={`portfolio-edge-hint portfolio-edge-hint-left pointer-events-none absolute inset-y-2 left-3 z-10 hidden w-24 rounded-l-[22px] transition-opacity duration-300 md:block ${
               canScrollLeft ? 'opacity-100' : 'opacity-0'
             }`}
           />
 
           <div
-            className={`pointer-events-none absolute inset-y-4 right-3 z-10 hidden w-16 rounded-r-[22px] bg-gradient-to-l from-[rgba(6,2,12,0.82)] via-[rgba(124,58,237,0.16)] to-transparent transition-opacity duration-300 md:block ${
+            className={`portfolio-edge-hint portfolio-edge-hint-right pointer-events-none absolute inset-y-2 right-3 z-10 hidden w-24 rounded-r-[22px] transition-opacity duration-300 md:block ${
               canScrollRight ? 'opacity-100' : 'opacity-0'
             }`}
           />
@@ -387,7 +387,7 @@ const Portfolio = () => {
                 </div>
               ))}
             </div>
-            <ScrollBar orientation="horizontal" className="mt-1" />
+            <ScrollBar orientation="horizontal" className="portfolio-scrollbar mt-1" />
           </ScrollArea>
         </div>
 
@@ -467,7 +467,13 @@ const Portfolio = () => {
                     className={`relative z-[5] h-full w-full px-3 py-3 md:px-16 md:py-10 flex items-center justify-center ${
                       canPlaySelectedVideo && !isVideoPlaying ? 'cursor-pointer' : ''
                     }`}
-                    onClick={() => {
+                    onClick={(event) => {
+                      if (event.target === event.currentTarget) {
+                        setIsVideoPlaying(false);
+                        setSelectedProject(null);
+                        return;
+                      }
+
                       if (canPlaySelectedVideo && !isVideoPlaying) {
                         setIsVideoPlaying(true);
                       }
