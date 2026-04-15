@@ -51,9 +51,14 @@ const Team = () => {
 
   const teamMembers = [
     {
-      name: 'Ariel Aguilera',
-      role: 'Director de Fotografía / Operador de Cámara',
-      imageFile: 'ariel-aguilera-director-de-fotografia-operador-de-camara.webp',
+      name: 'Cesar Abarca',
+      role: 'Founder / Productor ejecutivo / Director',
+      imageFile: 'cesar-abarca-founder-productor-ejecutivo-director.webp',
+    },
+    {
+      name: 'Santiago Salazar',
+      role: 'Productor General',
+      imageFile: 'santiago-salazar-productor-general.webp',
     },
     {
       name: 'Carlos Cruces',
@@ -61,19 +66,19 @@ const Team = () => {
       imageFile: 'carlos-cruces-productor-comercial.webp',
     },
     {
-      name: 'Cesar Abarca',
-      role: 'Founder / Productor ejecutivo / Director',
-      imageFile: 'cesar-abarca-founder-productor-ejecutivo-director.webp',
+      name: 'Elizabeth Ibarra',
+      role: 'Asistente de Producción / Styling',
+      imageFile: 'elizabeth-ibarra-asistente-de-produccion-styling.webp',
+    },
+    {
+      name: 'Ariel Aguilera',
+      role: 'Director de Fotografía / Operador de Cámara',
+      imageFile: 'ariel-aguilera-director-de-fotografia-operador-de-camara.webp',
     },
     {
       name: 'Crhistian Bustamante',
       role: 'Sonido directo / Asistente de Dirección',
       imageFile: 'christian-bustamante-sonido-directo-asistente-de-direccion.webp',
-    },
-    {
-      name: 'Elizabeth Ibarra',
-      role: 'Asistente de Producción / Styling',
-      imageFile: 'elizabeth-ibarra-asistente-de-produccion-styling.webp',
     },
     {
       name: 'Francisco Berrios',
@@ -99,11 +104,6 @@ const Team = () => {
       name: 'Nicholle Sepúlveda',
       role: 'Postproductora',
       imageFile: 'nichole-sepulveda-postproductora.webp',
-    },
-    {
-      name: 'Santiago Salazar',
-      role: 'Productor General',
-      imageFile: 'santiago-salazar-productor-general.webp',
     },
     {
       name: 'Vicente Cortés',
