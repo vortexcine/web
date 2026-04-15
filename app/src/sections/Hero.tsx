@@ -100,7 +100,7 @@ const Hero = () => {
             <div className="text-xs md:text-sm text-gray-400 mt-1">Proyectos</div>
           </div>
           <div className="text-center">
-            <div className="text-2xl md:text-3xl font-bold vortex-text">11</div>
+            <div className="text-2xl md:text-3xl font-bold vortex-text">12</div>
             <div className="text-xs md:text-sm text-gray-400 mt-1">Profesionales</div>
           </div>
           <div className="text-center">
