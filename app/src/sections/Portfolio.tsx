@@ -32,9 +32,33 @@ const Portfolio = () => {
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const [activeFilter, setActiveFilter] = useState<string>('todos');
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const [modalOrigin, setModalOrigin] = useState({ x: 50, y: 50 });
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
+
+  const videoclipLinks: Record<number, string> = {
+    1: 'https://www.youtube.com/watch?v=nnS1EsLCMbM',
+  };
+
+  const getYouTubeEmbedUrl = (url: string) => {
+    try {
+      const parsed = new URL(url);
+      if (parsed.hostname.includes('youtu.be')) {
+        const id = parsed.pathname.replace('/', '');
+        if (id) return `https://www.youtube.com/embed/${id}?autoplay=1&rel=0`;
+      }
+
+      if (parsed.hostname.includes('youtube.com')) {
+        const id = parsed.searchParams.get('v');
+        if (id) return `https://www.youtube.com/embed/${id}?autoplay=1&rel=0`;
+      }
+    } catch {
+      return '';
+    }
+
+    return '';
+  };
 
   const openProjectModal = (project: Project, originElement?: HTMLElement) => {
     if (originElement) {
@@ -49,6 +73,7 @@ const Portfolio = () => {
     }
 
     window.requestAnimationFrame(() => {
+      setIsVideoPlaying(false);
       setSelectedProject(project);
     });
   };
@@ -181,6 +206,7 @@ const Portfolio = () => {
 
     // Centered origin avoids awkward jump when switching images inside modal
     setModalOrigin({ x: 50, y: 50 });
+    setIsVideoPlaying(false);
     setSelectedProject(target);
   };
 
@@ -200,6 +226,15 @@ const Portfolio = () => {
       videoclipFirstIds.add(project.id);
     }
   });
+
+  const selectedVideoUrl = selectedProject ? videoclipLinks[selectedProject.id] : undefined;
+  const selectedEmbedUrl = selectedVideoUrl ? getYouTubeEmbedUrl(selectedVideoUrl) : '';
+  const canPlaySelectedVideo = Boolean(
+    selectedProject &&
+      selectedEmbedUrl &&
+      selectedProject.type === 'videoclip' &&
+      videoclipFirstIds.has(selectedProject.id)
+  );
 
   useEffect(() => {
     if (!selectedProject) return;
@@ -370,7 +405,10 @@ const Portfolio = () => {
         <Dialog
           open={selectedProject !== null}
           onOpenChange={(open) => {
-            if (!open) setSelectedProject(null);
+            if (!open) {
+              setIsVideoPlaying(false);
+              setSelectedProject(null);
+            }
           }}
         >
           <DialogContent
@@ -388,7 +426,10 @@ const Portfolio = () => {
                     type="button"
                     aria-label="Cerrar vista ampliada"
                     className="absolute inset-0 z-0 cursor-zoom-out"
-                    onClick={() => setSelectedProject(null)}
+                    onClick={() => {
+                      setIsVideoPlaying(false);
+                      setSelectedProject(null);
+                    }}
                   />
 
                   <div className="absolute inset-y-0 left-0 z-10 flex items-center pl-4">
@@ -419,13 +460,43 @@ const Portfolio = () => {
                     </Button>
                   </div>
 
-                  <div className="relative z-[5] h-full w-full px-3 py-3 md:px-16 md:py-10 flex items-center justify-center">
-                    <img
-                      src={getAssetUrl(selectedProject.image)}
-                      alt={selectedProject.title}
-                      decoding="async"
-                      className="max-w-[70vw] max-h-[70vh] object-contain"
-                    />
+                  <div
+                    className={`relative z-[5] h-full w-full px-3 py-3 md:px-16 md:py-10 flex items-center justify-center ${
+                      canPlaySelectedVideo && !isVideoPlaying ? 'cursor-pointer' : ''
+                    }`}
+                    onClick={() => {
+                      if (canPlaySelectedVideo && !isVideoPlaying) {
+                        setIsVideoPlaying(true);
+                      }
+                    }}
+                  >
+                    {canPlaySelectedVideo && isVideoPlaying ? (
+                      <iframe
+                        src={selectedEmbedUrl}
+                        title={`Video de ${selectedProject.title}`}
+                        className="w-[min(92vw,1320px)] h-[min(78vh,740px)] rounded-xl border border-white/15"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerPolicy="strict-origin-when-cross-origin"
+                        allowFullScreen
+                      />
+                    ) : (
+                      <>
+                        <img
+                          src={getAssetUrl(selectedProject.image)}
+                          alt={selectedProject.title}
+                          decoding="async"
+                          className="max-w-[70vw] max-h-[70vh] object-contain"
+                        />
+
+                        {canPlaySelectedVideo ? (
+                          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                            <div className="w-16 h-16 rounded-full bg-[#A855F7]/85 border border-white/20 flex items-center justify-center shadow-[0_0_30px_rgba(168,85,247,0.45)]">
+                              <Play size={24} fill="white" className="text-white ml-1" />
+                            </div>
+                          </div>
+                        ) : null}
+                      </>
+                    )}
                   </div>
 
                   <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black/85 via-black/40 to-transparent" />
