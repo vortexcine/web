@@ -66,6 +66,11 @@ body {
   background-clip: text;
 }
 
+.hero-logo-text {
+  color: #D946EF;
+  text-shadow: 0 0 18px rgba(217, 70, 239, 0.35), 0 0 38px rgba(217, 70, 239, 0.2);
+}
+
 /* Glow effects */
 .vortex-glow {
   box-shadow: 0 0 30px rgba(217, 70, 239, 0.3),

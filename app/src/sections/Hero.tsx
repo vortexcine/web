@@ -66,7 +66,7 @@ const Hero = () => {
         <h1 className="reveal stagger-1 text-4xl md:text-6xl lg:text-7xl font-bold mb-6">
           <span className="text-white">Damos vida a tus</span>
           <br />
-          <span className="vortex-text">historias</span>
+          <span className="hero-logo-text">historias</span>
         </h1>
 
         {/* Subtitle */}
