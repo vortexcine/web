@@ -67,8 +67,11 @@ body {
 }
 
 .hero-logo-text {
-  color: #D946EF;
-  text-shadow: 0 0 18px rgba(217, 70, 239, 0.35), 0 0 38px rgba(217, 70, 239, 0.2);
+  background: linear-gradient(135deg, #D946EF 0%, #E879F9 48%, #D946EF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 0 16px rgba(217, 70, 239, 0.38), 0 0 34px rgba(217, 70, 239, 0.24);
 }
 
 /* Glow effects */
