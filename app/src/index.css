@@ -9,19 +9,19 @@
   --card-foreground: 0 0% 100%;
   --popover: 0 0% 5%;
   --popover-foreground: 0 0% 100%;
-  --primary: 280 80% 55%;
+  --primary: 300 60% 50%;
   --primary-foreground: 0 0% 0%;
   --secondary: 0 0% 10%;
   --secondary-foreground: 0 0% 100%;
   --muted: 0 0% 15%;
   --muted-foreground: 0 0% 65%;
-  --accent: 280 80% 55%;
+  --accent: 300 60% 50%;
   --accent-foreground: 0 0% 0%;
   --destructive: 0 84% 60%;
   --destructive-foreground: 0 0% 100%;
   --border: 0 0% 20%;
   --input: 0 0% 15%;
-  --ring: 280 80% 55%;
+  --ring: 300 60% 50%;
   --radius: 0.5rem;
 }
 
@@ -55,35 +55,35 @@ body {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #D946EF;
+  background: #db5cdb;
 }
 
-/* Vortex gradient text - Violeta más intenso */
+/* Vortex gradient text - Fucsia magenta */
 .vortex-text {
-  background: linear-gradient(135deg, #D946EF 0%, #E879F9 50%, #D946EF 100%);
+  background: linear-gradient(135deg, #cc33cc 0%, #e085e0 50%, #cc33cc 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .hero-logo-text {
-  background: linear-gradient(135deg, #D946EF 0%, #F0ABFC 46%, #C026D3 100%);
+  background: linear-gradient(135deg, #cc33cc 0%, #f2b8f2 46%, #a329a3 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  text-shadow: 0 0 12px rgba(217, 70, 239, 0.24), 0 0 24px rgba(217, 70, 239, 0.14);
+  text-shadow: 0 0 12px rgba(204, 51, 204, 0.24), 0 0 24px rgba(204, 51, 204, 0.14);
 }
 
 /* Glow effects */
 .vortex-glow {
-  box-shadow: 0 0 30px rgba(217, 70, 239, 0.3),
-              0 0 60px rgba(217, 70, 239, 0.2),
-              0 0 90px rgba(217, 70, 239, 0.1);
+  box-shadow: 0 0 30px rgba(204, 51, 204, 0.3),
+              0 0 60px rgba(204, 51, 204, 0.2),
+              0 0 90px rgba(204, 51, 204, 0.1);
 }
 
 .vortex-glow-sm {
-  box-shadow: 0 0 15px rgba(217, 70, 239, 0.4),
-              0 0 30px rgba(217, 70, 239, 0.2);
+  box-shadow: 0 0 15px rgba(204, 51, 204, 0.4),
+              0 0 30px rgba(204, 51, 204, 0.2);
 }
 
 /* Animated background gradient */
@@ -119,7 +119,7 @@ body {
 .vortex-orb-1 {
   width: 600px;
   height: 600px;
-  background: radial-gradient(circle, rgba(217, 70, 239, 0.15) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(204, 51, 204, 0.15) 0%, transparent 70%);
   top: -200px;
   right: -200px;
   animation-delay: 0s;
@@ -128,7 +128,7 @@ body {
 .vortex-orb-2 {
   width: 500px;
   height: 500px;
-  background: radial-gradient(circle, rgba(217, 70, 239, 0.1) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(204, 51, 204, 0.1) 0%, transparent 70%);
   bottom: -150px;
   left: -150px;
   animation-delay: 2s;
@@ -203,7 +203,7 @@ body {
 }
 
 .portfolio-scrollbar [data-slot='scroll-area-thumb'] {
-  background: linear-gradient(90deg, rgba(162, 28, 175, 0.34), rgba(217, 70, 239, 0.48));
+  background: linear-gradient(90deg, rgba(143, 36, 143, 0.34), rgba(204, 51, 204, 0.48));
 }
 
 .portfolio-scrollbar:hover {
@@ -296,12 +296,12 @@ body {
 
 .card-hover:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 40px rgba(217, 70, 239, 0.15);
+  box-shadow: 0 10px 40px rgba(204, 51, 204, 0.15);
 }
 
 /* Button styles */
 .btn-vortex {
-  background: linear-gradient(135deg, #D946EF 0%, #A21CAF 100%);
+  background: linear-gradient(135deg, #cc33cc 0%, #8f248f 100%);
   color: white;
   padding: 0.875rem 2rem;
   border-radius: 9999px;
@@ -313,7 +313,7 @@ body {
 
 .btn-vortex:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(217, 70, 239, 0.4);
+  box-shadow: 0 8px 25px rgba(204, 51, 204, 0.4);
 }
 
 .btn-outline {
@@ -323,13 +323,13 @@ body {
   border-radius: 9999px;
   font-weight: 600;
   transition: all 0.3s ease;
-  border: 1px solid rgba(217, 70, 239, 0.5);
+  border: 1px solid rgba(204, 51, 204, 0.5);
   cursor: pointer;
 }
 
 .btn-outline:hover {
-  background: rgba(217, 70, 239, 0.1);
-  border-color: #D946EF;
+  background: rgba(204, 51, 204, 0.1);
+  border-color: #cc33cc;
 }
 
 /* Section spacing */
@@ -357,15 +357,15 @@ body {
   position: absolute;
   inset: 0;
   background-image: 
-    linear-gradient(rgba(217, 70, 239, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(217, 70, 239, 0.03) 1px, transparent 1px);
+    linear-gradient(rgba(204, 51, 204, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(204, 51, 204, 0.03) 1px, transparent 1px);
   background-size: 50px 50px;
   pointer-events: none;
 }
 
 /* Selection color */
 ::selection {
-  background: rgba(217, 70, 239, 0.3);
+  background: rgba(204, 51, 204, 0.3);
   color: white;
 }
 

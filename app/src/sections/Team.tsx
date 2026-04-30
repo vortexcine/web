@@ -136,7 +136,7 @@ const Team = () => {
         {/* Header */}
         <div className="text-center mb-16">
           <div className="reveal">
-            <span className="text-[#D946EF] text-sm font-semibold tracking-widest uppercase">
+            <span className="text-[#CC33CC] text-sm font-semibold tracking-widest uppercase">
               Nuestro Equipo
             </span>
           </div>
@@ -181,7 +181,7 @@ const Team = () => {
                   <h3 className="text-white font-bold text-lg mb-1">
                     {member.name}
                   </h3>
-                  <p className="text-[#D946EF] text-sm font-medium">
+                  <p className="text-[#CC33CC] text-sm font-medium">
                     {member.role}
                   </p>
                 </div>
