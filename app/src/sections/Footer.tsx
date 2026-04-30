@@ -61,14 +61,14 @@ const Footer = () => {
             <div className="flex gap-3">
               <a
                 href="#"
-                className="w-9 h-9 rounded-lg bg-white/5 hover:bg-[#A855F7] flex items-center justify-center transition-colors"
+                className="w-9 h-9 rounded-lg bg-white/5 hover:bg-[#D946EF] flex items-center justify-center transition-colors"
                 aria-label="Instagram"
               >
                 <Instagram size={16} />
               </a>
               <a
                 href="mailto:Productora@vortexcine.com"
-                className="w-9 h-9 rounded-lg bg-white/5 hover:bg-[#A855F7] flex items-center justify-center transition-colors"
+                className="w-9 h-9 rounded-lg bg-white/5 hover:bg-[#D946EF] flex items-center justify-center transition-colors"
                 aria-label="Email"
               >
                 <Mail size={16} />
@@ -88,7 +88,7 @@ const Footer = () => {
                       e.preventDefault();
                       scrollToSection(link.href);
                     }}
-                    className="text-gray-400 hover:text-[#A855F7] transition-colors text-sm"
+                    className="text-gray-400 hover:text-[#D946EF] transition-colors text-sm"
                   >
                     {link.label}
                   </a>
@@ -105,7 +105,7 @@ const Footer = () => {
                 <li key={link.label}>
                   <a
                     href={link.href}
-                    className="text-gray-400 hover:text-[#A855F7] transition-colors text-sm"
+                    className="text-gray-400 hover:text-[#D946EF] transition-colors text-sm"
                   >
                     {link.label}
                   </a>
@@ -129,7 +129,7 @@ const Footer = () => {
                 <a
                   key={link.label}
                   href={link.href}
-                  className="text-gray-500 hover:text-[#A855F7] transition-colors text-sm"
+                  className="text-gray-500 hover:text-[#D946EF] transition-colors text-sm"
                 >
                   {link.label}
                 </a>
@@ -142,7 +142,7 @@ const Footer = () => {
       {/* Scroll to Top Button */}
       <button
         onClick={scrollToTop}
-        className="fixed bottom-6 right-6 w-12 h-12 rounded-full bg-[#A855F7] hover:bg-[#7C3AED] text-white flex items-center justify-center shadow-lg shadow-[#A855F7]/30 transition-all hover:scale-110 z-50"
+        className="fixed bottom-6 right-6 w-12 h-12 rounded-full bg-[#D946EF] hover:bg-[#A21CAF] text-white flex items-center justify-center shadow-lg shadow-[#D946EF]/30 transition-all hover:scale-110 z-50"
         aria-label="Volver arriba"
       >
         <ArrowUp size={20} />
@@ -152,3 +152,4 @@ const Footer = () => {
 };
 
 export default Footer;
+

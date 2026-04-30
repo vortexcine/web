@@ -128,7 +128,7 @@ const Contact = () => {
         {/* Header */}
         <div className="text-center mb-16">
           <div className="reveal">
-            <span className="text-[#A855F7] text-sm font-semibold tracking-widest uppercase">
+            <span className="text-[#D946EF] text-sm font-semibold tracking-widest uppercase">
               Contacto
             </span>
           </div>
@@ -153,12 +153,12 @@ const Contact = () => {
                   href={item.href}
                   className="flex items-start gap-4 group"
                 >
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#A855F7]/20 to-[#C084FC]/20 flex items-center justify-center flex-shrink-0 group-hover:from-[#A855F7]/30 group-hover:to-[#C084FC]/30 transition-all">
-                    <item.icon className="text-[#A855F7]" size={20} />
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#D946EF]/20 to-[#E879F9]/20 flex items-center justify-center flex-shrink-0 group-hover:from-[#D946EF]/30 group-hover:to-[#E879F9]/30 transition-all">
+                    <item.icon className="text-[#D946EF]" size={20} />
                   </div>
                   <div>
                     <p className="text-gray-500 text-sm mb-1">{item.label}</p>
-                    <p className="text-white font-medium group-hover:text-[#A855F7] transition-colors">
+                    <p className="text-white font-medium group-hover:text-[#D946EF] transition-colors">
                       {item.value}
                     </p>
                   </div>
@@ -176,7 +176,7 @@ const Contact = () => {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-11 h-11 rounded-xl bg-white/5 hover:bg-[#A855F7] border border-white/10 hover:border-[#A855F7] flex items-center justify-center transition-all"
+                    className="w-11 h-11 rounded-xl bg-white/5 hover:bg-[#D946EF] border border-white/10 hover:border-[#D946EF] flex items-center justify-center transition-all"
                     aria-label={social.label}
                   >
                     <social.icon size={18} />
@@ -236,7 +236,7 @@ const Contact = () => {
                         value={formData.name}
                         onChange={handleChange}
                         required
-                        className="w-full bg-black/30 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-[#A855F7] focus:ring-1 focus:ring-[#A855F7] transition-all"
+                        className="w-full bg-black/30 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-[#D946EF] focus:ring-1 focus:ring-[#D946EF] transition-all"
                         placeholder="Tu nombre"
                       />
                     </div>
@@ -250,7 +250,7 @@ const Contact = () => {
                         value={formData.email}
                         onChange={handleChange}
                         required
-                        className="w-full bg-black/30 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-[#A855F7] focus:ring-1 focus:ring-[#A855F7] transition-all"
+                        className="w-full bg-black/30 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-[#D946EF] focus:ring-1 focus:ring-[#D946EF] transition-all"
                         placeholder="tu@email.com"
                       />
                     </div>
@@ -265,7 +265,7 @@ const Contact = () => {
                       value={formData.subject}
                       onChange={handleChange}
                       required
-                      className="w-full bg-black/30 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#A855F7] focus:ring-1 focus:ring-[#A855F7] transition-all appearance-none cursor-pointer"
+                      className="w-full bg-black/30 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#D946EF] focus:ring-1 focus:ring-[#D946EF] transition-all appearance-none cursor-pointer"
                     >
                       <option value="" className="bg-black">
                         Selecciona una opción
@@ -298,7 +298,7 @@ const Contact = () => {
                       onChange={handleChange}
                       required
                       rows={5}
-                      className="w-full bg-black/30 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-[#A855F7] focus:ring-1 focus:ring-[#A855F7] transition-all resize-none"
+                      className="w-full bg-black/30 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-[#D946EF] focus:ring-1 focus:ring-[#D946EF] transition-all resize-none"
                       placeholder="Cuéntanos sobre tu proyecto..."
                     />
                   </div>
@@ -341,3 +341,4 @@ const Contact = () => {
 };
 
 export default Contact;
+

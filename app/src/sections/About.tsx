@@ -62,7 +62,7 @@ const About = () => {
           {/* Left Column - Content */}
           <div>
             <div className="reveal">
-              <span className="text-[#A855F7] text-sm font-semibold tracking-widest uppercase">
+              <span className="text-[#D946EF] text-sm font-semibold tracking-widest uppercase">
                 Sobre Nosotros
               </span>
             </div>
@@ -117,8 +117,8 @@ const About = () => {
                 key={service.title}
                 className={`reveal stagger-${index + 1} bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10 card-hover group`}
               >
-                <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-[#A855F7]/20 to-[#C084FC]/20 flex items-center justify-center mb-4 group-hover:from-[#A855F7]/30 group-hover:to-[#C084FC]/30 transition-all">
-                  <service.icon className="text-[#A855F7]" size={24} />
+                <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-[#D946EF]/20 to-[#E879F9]/20 flex items-center justify-center mb-4 group-hover:from-[#D946EF]/30 group-hover:to-[#E879F9]/30 transition-all">
+                  <service.icon className="text-[#D946EF]" size={24} />
                 </div>
                 <h3 className="text-white font-semibold text-lg mb-2">
                   {service.title}
@@ -136,3 +136,4 @@ const About = () => {
 };
 
 export default About;
+
