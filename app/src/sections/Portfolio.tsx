@@ -499,7 +499,7 @@ const Portfolio = () => {
 
                         {canPlaySelectedVideo ? (
                           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                            <div className="w-16 h-16 rounded-full bg-[#D946EF]/85 border border-white/20 flex items-center justify-center shadow-[0_0_30px_rgba(168,85,247,0.45)]">
+                            <div className="w-16 h-16 rounded-full bg-[#D946EF]/85 border border-white/20 flex items-center justify-center shadow-[0_0_30px_rgba(217,70,239,0.45)]">
                               <Play size={24} fill="white" className="text-white ml-1" />
                             </div>
                           </div>
