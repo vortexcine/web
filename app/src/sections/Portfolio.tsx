@@ -12,6 +12,7 @@ interface Project {
   category: string;
   image: string;
   type: 'videoclip' | 'fotografia' | 'makeoff';
+  objectPosition?: string;
 }
 
 // Función para limpiar el nombre del archivo
@@ -158,7 +159,7 @@ const Portfolio = () => {
     { id: 5, title: cleanFileName('Volver pa atras(1).webp'), category: 'Videoclip', image: '/images/portfolio/stills/Volver pa atras(1).webp', type: 'videoclip' },
     { id: 6, title: cleanFileName('Volver pa atras(2).webp'), category: 'Videoclip', image: '/images/portfolio/stills/Volver pa atras(2).webp', type: 'videoclip' },
     { id: 7, title: cleanFileName('Voy y Vuelvo 1.webp'), category: 'Videoclip', image: '/images/portfolio/stills/Voy y Vuelvo 1.webp', type: 'videoclip' },
-    { id: 8, title: cleanFileName('Voy y Vuelvo 2.webp'), category: 'Videoclip', image: '/images/portfolio/stills/Voy y Vuelvo 2.webp', type: 'videoclip' },
+    { id: 8, title: cleanFileName('Voy y Vuelvo 2.webp'), category: 'Videoclip', image: '/images/portfolio/stills/Voy y Vuelvo 2.webp', type: 'videoclip', objectPosition: '70% 30%' },
     // Fotografía (8 imágenes)
     { id: 9, title: cleanFileName('Sesión de Fotos 14.webp'), category: 'Fotografía', image: '/images/portfolio/fotografia/Sesión de Fotos 14.webp', type: 'fotografia' },
     { id: 10, title: cleanFileName('Sesión de Fotos 17.webp'), category: 'Fotografía', image: '/images/portfolio/fotografia/Sesión de Fotos 17.webp', type: 'fotografia' },
@@ -166,8 +167,8 @@ const Portfolio = () => {
     { id: 12, title: cleanFileName('Registro DJ La Feria 2.webp'), category: 'Fotografía', image: '/images/portfolio/fotografia/Registro DJ La Feria 2.webp', type: 'fotografia' },
     { id: 13, title: cleanFileName('Registro Festival 5.webp'), category: 'Fotografía', image: '/images/portfolio/fotografia/Registro Festival 5.webp', type: 'fotografia' },
     { id: 14, title: cleanFileName('Registro Paxlito en Vivo 1.webp'), category: 'Fotografía', image: '/images/portfolio/fotografia/Registro Paxlito en Vivo 1.webp', type: 'fotografia' },
-    { id: 15, title: cleanFileName('Sesión de Fotos 3.webp'), category: 'Fotografía', image: '/images/portfolio/fotografia/Sesión de Fotos 3.webp', type: 'fotografia' },
-    { id: 16, title: cleanFileName('Sesión de Fotos 6.webp'), category: 'Fotografía', image: '/images/portfolio/fotografia/Sesión de Fotos 6.webp', type: 'fotografia' },
+    { id: 15, title: cleanFileName('Sesión de Fotos 3.webp'), category: 'Fotografía', image: '/images/portfolio/fotografia/Sesión de Fotos 3.webp', type: 'fotografia', objectPosition: 'top' },
+    { id: 16, title: cleanFileName('Sesión de Fotos 6.webp'), category: 'Fotografía', image: '/images/portfolio/fotografia/Sesión de Fotos 6.webp', type: 'fotografia', objectPosition: 'top' },
     // Make Off (8 imágenes)
     { id: 17, title: cleanFileName('Detrás de cámara _Verte Encima_(1).webp'), category: 'Make Off', image: '/images/portfolio/makeoff/Detrás de cámara _Verte Encima_(1).webp', type: 'makeoff' },
     { id: 18, title: cleanFileName('Detrás de cámara _Verte Encima_.webp'), category: 'Make Off', image: '/images/portfolio/makeoff/Detrás de cámara _Verte Encima_.webp', type: 'makeoff' },
@@ -366,6 +367,7 @@ const Portfolio = () => {
                     decoding="async"
                     revealDelayMs={getRevealDelay(index)}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    style={{ objectPosition: project.objectPosition || 'center' }}
                   />
 
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
