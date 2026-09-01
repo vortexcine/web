@@ -20,6 +20,11 @@ const LazyImage = ({ className, src, onLoad, style, revealDelayMs = 0, ...props 
     // Slightly longer delay avoids cache-timing snap and keeps reveal perceptible
     loadTimerRef.current = window.setTimeout(() => {
       setIsLoaded(true);
+      // Safety net: some engines (notably iOS Safari inside nested scroll containers)
+      // never fire the IntersectionObserver below, which would leave the image stuck
+      // at opacity 0 forever. Loading only happens near the viewport anyway, so it's
+      // safe to also treat a loaded image as "in view".
+      setHasEnteredView(true);
     }, 150);
   };
 

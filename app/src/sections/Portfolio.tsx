@@ -370,9 +370,9 @@ const Portfolio = () => {
                     style={{ objectPosition: project.objectPosition || 'center' }}
                   />
 
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300" />
 
-                  <div className="absolute inset-0 flex flex-col justify-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="absolute inset-0 flex flex-col justify-end p-4 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300">
                     <span className="text-[#CC33CC] text-xs font-semibold uppercase tracking-wider mb-1">
                       {project.category}
                     </span>
@@ -382,7 +382,7 @@ const Portfolio = () => {
                   </div>
 
                   {project.type === 'videoclip' && videoclipFirstIds.has(project.id) && Boolean(videoclipLinks[project.id]) && (
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-[#CC33CC]/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:scale-110">
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-[#CC33CC]/80 flex items-center justify-center opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-all duration-300 group-hover:scale-110">
                       <Play size={20} fill="white" className="text-white ml-1" />
                     </div>
                   )}
