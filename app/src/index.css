@@ -317,13 +317,19 @@ body {
 
   .lazy-image-fade {
     filter: none;
-    /* translateZ(0) keeps a GPU compositing layer; plain "none" made some
-       images fail to paint in iOS Safari inside the horizontal-scroll gallery */
+    transform: none;
+    transition: opacity 0.25s ease-out;
+  }
+
+  /* Promote the card (not the object-fit image itself) to its own GPU layer.
+     Transforming an object-fit:cover <img> directly caused iOS Safari to
+     mis-scale it ("zoomed" look); promoting the wrapper avoids that while
+     still fixing the blank/black paint bug inside the horizontal scroller. */
+  .portfolio-scroll-grid > div {
     transform: translateZ(0);
     -webkit-transform: translateZ(0);
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
-    transition: opacity 0.25s ease-out;
   }
 }
 
