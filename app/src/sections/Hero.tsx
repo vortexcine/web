@@ -45,6 +45,8 @@ const Hero = () => {
           loading="eager"
           decoding="async"
           fetchPriority="high"
+          width={1920}
+          height={1080}
           className="w-full h-full object-cover opacity-40"
         />
       </div>
@@ -58,6 +60,8 @@ const Hero = () => {
             alt="Vortex Studio"
             loading="eager"
             decoding="async"
+            width={2928}
+            height={2403}
             className="h-24 md:h-32 w-auto mx-auto"
           />
         </div>

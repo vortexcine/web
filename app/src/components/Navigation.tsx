@@ -52,6 +52,8 @@ const Navigation = () => {
               alt="Vortex Studio"
               loading="eager"
               decoding="async"
+              width={2928}
+              height={2403}
               className="h-10 w-auto"
             />
             <span className="hidden sm:block text-white font-semibold text-lg tracking-wide">
