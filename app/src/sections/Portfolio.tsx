@@ -175,8 +175,8 @@ const Portfolio = () => {
     { id: 19, title: cleanFileName('Detrás de cámara _Verte Encima 4_.webp'), category: 'Make Off', image: '/images/portfolio/makeoff/Detrás de cámara _Verte Encima 4_.webp', type: 'makeoff' },
     { id: 20, title: cleanFileName('Equipo de Arte.webp'), category: 'Make Off', image: '/images/portfolio/makeoff/Equipo de Arte.webp', type: 'makeoff' },
     { id: 21, title: cleanFileName('Equipo iluminacion.webp'), category: 'Make Off', image: '/images/portfolio/makeoff/Equipo iluminacion.webp', type: 'makeoff' },
-    { id: 22, title: cleanFileName('Operador de Camara _Voy y Vuelvo_(1).webp'), category: 'Make Off', image: '/images/portfolio/makeoff/Operador de Camara _Voy y Vuelvo_(1).webp', type: 'makeoff' },
-    { id: 23, title: cleanFileName('Operador de camara _Voy y Vuelvo_.webp'), category: 'Make Off', image: '/images/portfolio/makeoff/Operador de camara _Voy y Vuelvo_.webp', type: 'makeoff' },
+    { id: 22, title: cleanFileName('Operador de Camara _Voy y Vuelvo_(1).webp'), category: 'Make Off', image: '/images/portfolio/makeoff/Operador de Camara _Voy y Vuelvo_(1).webp', type: 'makeoff', objectPosition: 'center 27%' },
+    { id: 23, title: cleanFileName('Operador de camara _Voy y Vuelvo_.webp'), category: 'Make Off', image: '/images/portfolio/makeoff/Operador de camara _Voy y Vuelvo_.webp', type: 'makeoff', objectPosition: 'center 28%' },
     { id: 24, title: cleanFileName('Prueba de Iluminacion(1).webp'), category: 'Make Off', image: '/images/portfolio/makeoff/Prueba de Iluminacion(1).webp', type: 'makeoff' },
   ];
 
