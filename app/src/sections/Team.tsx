@@ -56,11 +56,6 @@ const Team = () => {
       imageFile: 'cesar-abarca-founder-productor-ejecutivo-director.webp',
     },
     {
-      name: 'Santiago Salazar',
-      role: 'Productor General',
-      imageFile: 'santiago-salazar-productor-general.webp',
-    },
-    {
       name: 'Carlos Cruces',
       role: 'Productor Comercial',
       imageFile: 'carlos-cruces-productor-comercial.webp',
@@ -76,16 +71,6 @@ const Team = () => {
       imageFile: 'ariel-aguilera-director-de-fotografia-operador-de-camara.webp',
     },
     {
-      name: 'Crhistian Bustamante',
-      role: 'Sonido directo / Asistente de Dirección',
-      imageFile: 'christian-bustamante-sonido-directo-asistente-de-direccion.webp',
-    },
-    {
-      name: 'Francisco Berrios',
-      role: 'Jefe Gaffer y electrico',
-      imageFile: 'francisco-berrios-gaffer-electrico.webp',
-    },
-    {
       name: 'Francisca Venegas',
       role: 'Directora Creativa / Guionista',
       imageFile: 'francisca-venegas-directora-creativa-guionista.webp',
@@ -96,19 +81,9 @@ const Team = () => {
       imageFile: 'joaquin-campos-director-de-fotografia-postproductor.webp',
     },
     {
-      name: 'Luis Tobar',
-      role: 'Operador de Cámara',
-      imageFile: 'luis-tobar-operador-de-camara.webp',
-    },
-    {
       name: 'Nicholle Sepúlveda',
       role: 'Postproductora',
       imageFile: 'nichole-sepulveda-postproductora.webp',
-    },
-    {
-      name: 'Vicente Cortés',
-      role: 'Director de Arte / Asistente de Producción',
-      imageFile: 'vicente-cortes-director-de-arte-asistente-de-produccion.webp',
     },
   ];
 

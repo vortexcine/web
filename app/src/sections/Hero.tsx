@@ -34,7 +34,7 @@ const Hero = () => {
     <section
       id="inicio"
       ref={heroRef}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      className="relative min-h-screen min-h-[100svh] flex items-center justify-center overflow-hidden"
     >
       {/* Background with overlay */}
       <div className="absolute inset-0 z-0">
