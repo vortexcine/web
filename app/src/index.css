@@ -198,6 +198,10 @@ body {
   padding-right: 0.25rem;
 }
 
+[data-slot='scroll-area-viewport'] {
+  -webkit-overflow-scrolling: touch;
+}
+
 .portfolio-scrollbar {
   opacity: 0.65;
 }
@@ -313,7 +317,12 @@ body {
 
   .lazy-image-fade {
     filter: none;
-    transform: none;
+    /* translateZ(0) keeps a GPU compositing layer; plain "none" made some
+       images fail to paint in iOS Safari inside the horizontal-scroll gallery */
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
     transition: opacity 0.25s ease-out;
   }
 }
