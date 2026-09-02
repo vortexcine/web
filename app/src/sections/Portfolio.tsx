@@ -366,7 +366,7 @@ const Portfolio = () => {
                     loading="lazy"
                     decoding="async"
                     revealDelayMs={getRevealDelay(index)}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    className="portfolio-image w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                     style={{ objectPosition: project.objectPosition || 'center' }}
                   />
 
