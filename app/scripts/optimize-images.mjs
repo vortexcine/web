@@ -39,12 +39,38 @@ const walk = (dir) => {
       continue;
     }
 
-    if (entry.isFile() && path.extname(entry.name).toLowerCase() === '.webp') {
+    if (
+      entry.isFile() &&
+      path.extname(entry.name).toLowerCase() === '.webp' &&
+      !/-thumb(@2x)?\.webp$/i.test(entry.name)
+    ) {
       files.push(fullPath);
     }
   }
 
   return files;
+};
+
+const isPortfolioImage = (filePath) => /[\\/]portfolio[\\/]/i.test(filePath);
+
+const thumbProfile = { maxWidth: 420, quality: 68 };
+const thumbProfile2x = { maxWidth: 840, quality: 72 };
+
+const getThumbPaths = (filePath) => {
+  const dir = path.dirname(filePath);
+  const base = path.basename(filePath, '.webp');
+  return {
+    thumb: path.join(dir, `${base}-thumb.webp`),
+    thumb2x: path.join(dir, `${base}-thumb@2x.webp`),
+  };
+};
+
+const generateThumbnail = async (sourceBuffer, outPath, profile) => {
+  const buffer = await sharp(sourceBuffer, { failOn: 'none' })
+    .resize({ width: profile.maxWidth, withoutEnlargement: true })
+    .webp({ quality: profile.quality, effort: 5, smartSubsample: true })
+    .toBuffer();
+  await writeWithRetry(outPath, buffer);
 };
 
 const getProfile = (filePath) => {
@@ -124,6 +150,13 @@ const main = async () => {
       console.log(
         `${path.basename(filePath)}: ${formatMb(before)} MB -> ${formatMb(after)} MB (${Math.round(((before - after) / before) * 100)}%)`
       );
+
+      if (isPortfolioImage(filePath)) {
+        const { thumb, thumb2x } = getThumbPaths(filePath);
+        await generateThumbnail(sourceBuffer, thumb, thumbProfile);
+        await generateThumbnail(sourceBuffer, thumb2x, thumbProfile2x);
+        console.log(`  -> thumbnails: ${path.basename(thumb)}, ${path.basename(thumb2x)}`);
+      }
     } catch (error) {
       failed.push(path.basename(filePath));
       console.log(`${path.basename(filePath)}: omitida por bloqueo temporal (${error.code ?? 'ERROR'})`);

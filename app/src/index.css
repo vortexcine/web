@@ -198,6 +198,25 @@ body {
   padding-right: 0.25rem;
 }
 
+/* Safari/iOS no resuelve bien height:100% en hijos de cajas con aspect-ratio;
+   llenar la tarjeta de forma absoluta garantiza que object-fit: cover recorte bien. */
+.portfolio-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* En táctiles el :hover queda "pegado" tras un toque y dejaría la miniatura
+   permanentemente ampliada por group-hover:scale-110. */
+@media (hover: none) {
+  .group:hover .portfolio-image {
+    transform: none;
+  }
+}
+
 [data-slot='scroll-area-viewport'] {
   -webkit-overflow-scrolling: touch;
 }

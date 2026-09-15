@@ -6,7 +6,17 @@ type LazyImageProps = ImgHTMLAttributes<HTMLImageElement> & {
   revealDelayMs?: number;
 };
 
-const LazyImage = ({ className, src, onLoad, style, revealDelayMs = 0, ...props }: LazyImageProps) => {
+const LazyImage = ({
+  className,
+  src,
+  onLoad,
+  style,
+  revealDelayMs = 0,
+  loading = 'lazy',
+  decoding = 'async',
+  fetchPriority = 'low',
+  ...props
+}: LazyImageProps) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [hasEnteredView, setHasEnteredView] = useState(false);
   const loadTimerRef = useRef<number | null>(null);
@@ -78,6 +88,9 @@ const LazyImage = ({ className, src, onLoad, style, revealDelayMs = 0, ...props 
     <img
       {...props}
       src={src}
+      loading={loading}
+      decoding={decoding}
+      fetchPriority={fetchPriority}
       style={{
         ...(style ?? {}),
         '--lazy-delay': `${Math.max(0, revealDelayMs)}ms`,

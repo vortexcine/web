@@ -15,6 +15,17 @@ interface Project {
   objectPosition?: string;
 }
 
+// Genera las rutas de las miniaturas (1x/2x) usadas en la grilla del portafolio
+const getThumbUrls = (image: string) => {
+  const lastDot = image.lastIndexOf('.');
+  const base = lastDot === -1 ? image : image.slice(0, lastDot);
+  const ext = lastDot === -1 ? '' : image.slice(lastDot);
+  return {
+    thumb1x: `${base}-thumb${ext}`,
+    thumb2x: `${base}-thumb@2x${ext}`,
+  };
+};
+
 // Función para limpiar el nombre del archivo
 const cleanFileName = (filename: string): string => {
   // Remover extensión
@@ -361,10 +372,12 @@ const Portfolio = () => {
                   }}
                 >
                   <LazyImage
-                    src={getAssetUrl(project.image)}
+                    src={getAssetUrl(getThumbUrls(project.image).thumb1x)}
+                    srcSet={`${getAssetUrl(getThumbUrls(project.image).thumb1x)} 1x, ${getAssetUrl(getThumbUrls(project.image).thumb2x)} 2x`}
+                    sizes="(max-width: 767px) 240px, (max-width: 1279px) 280px, 300px"
                     alt={project.title}
-                    loading="lazy"
-                    decoding="async"
+                    width={300}
+                    height={225}
                     revealDelayMs={getRevealDelay(index)}
                     className="portfolio-image w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                     style={{ objectPosition: project.objectPosition || 'center' }}
@@ -496,6 +509,7 @@ const Portfolio = () => {
                           src={getAssetUrl(selectedProject.image)}
                           alt={selectedProject.title}
                           decoding="async"
+                          fetchPriority="high"
                           className="max-w-[70vw] max-h-[70vh] object-contain"
                         />
 
