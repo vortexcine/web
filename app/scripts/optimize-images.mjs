@@ -1,4 +1,4 @@
-import { readFileSync, readdirSync, statSync, writeFileSync } from 'node:fs';
+﻿import { readFileSync, readdirSync, statSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import sharp from 'sharp';
 
@@ -6,26 +6,35 @@ const rootDir = path.resolve(process.cwd(), 'public', 'images');
 
 const folderProfiles = [
   {
+    test: /[\\/]stills[\\/]/i,
+    maxWidth: 2400, quality: 93,
+  },
+  {
     test: /[\\/]team[\\/]/i,
-    maxWidth: 1800,
-    quality: 84,
+    maxWidth: 1920, quality: 82,
   },
   {
     test: /[\\/]portfolio[\\/]/i,
-    maxWidth: 2200,
-    quality: 82,
+    maxWidth: 1920, quality: 82,
   },
   {
     test: /./,
-    maxWidth: 2000,
-    quality: 82,
+    maxWidth: 1920, quality: 82,
   },
 ];
 
-const fileProfiles = {
-  'Registro Paxlito en Vivo 1.webp': { maxWidth: 1700, quality: 76 },
-  'Paisajismo 2.webp': { maxWidth: 1800, quality: 78 },
-  'Equipo de Arte.webp': { maxWidth: 1700, quality: 78 },
+const fileProfiles = {};
+
+const normalizeKey = (name) =>
+  path.basename(name, path.extname(name)).normalize('NFD').replace(/[^a-z0-9]/gi, '').toLowerCase();
+
+const findOriginal = (webpPath) => {
+  const dir = path.dirname(webpPath);
+  const key = normalizeKey(webpPath);
+  const match = readdirSync(dir).find(
+    (f) => /\.(jpe?g|png)$/i.test(f) && normalizeKey(f) === key
+  );
+  return match ? path.join(dir, match) : null;
 };
 
 const walk = (dir) => {
@@ -53,8 +62,8 @@ const walk = (dir) => {
 
 const isPortfolioImage = (filePath) => /[\\/]portfolio[\\/]/i.test(filePath);
 
-const thumbProfile = { maxWidth: 420, quality: 68 };
-const thumbProfile2x = { maxWidth: 840, quality: 72 };
+const thumbProfile = { maxWidth: 400, quality: 80 };
+const thumbProfile2x = { maxWidth: 800, quality: 80 };
 
 const getThumbPaths = (filePath) => {
   const dir = path.dirname(filePath);
@@ -67,6 +76,7 @@ const getThumbPaths = (filePath) => {
 
 const generateThumbnail = async (sourceBuffer, outPath, profile) => {
   const buffer = await sharp(sourceBuffer, { failOn: 'none' })
+    .rotate()
     .resize({ width: profile.maxWidth, withoutEnlargement: true })
     .webp({ quality: profile.quality, effort: 5, smartSubsample: true })
     .toBuffer();
@@ -125,22 +135,21 @@ const main = async () => {
       const before = statSync(filePath).size;
       const profile = getProfile(filePath);
 
-      const sourceBuffer = readFileSync(filePath);
-      const image = sharp(sourceBuffer, { failOn: 'none' });
-      const metadata = await image.metadata();
-      const shouldResize = typeof metadata.width === 'number' && metadata.width > profile.maxWidth;
+      // Re-encode only from an original; re-compressing a WebP degrades it each run.
+      const originalPath = findOriginal(filePath);
+      const sourceBuffer = readFileSync(originalPath ?? filePath);
 
-      const pipeline = shouldResize
-        ? image.resize({ width: profile.maxWidth, withoutEnlargement: true })
-        : image;
+      if (originalPath) {
+        const outputBuffer = await sharp(sourceBuffer, { failOn: 'none' })
+          .rotate()
+          .resize({ width: profile.maxWidth, withoutEnlargement: true })
+          .webp({ quality: profile.quality, effort: 5, smartSubsample: true })
+          .toBuffer();
 
-      const outputBuffer = await pipeline.webp({
-        quality: profile.quality,
-        effort: 5,
-        smartSubsample: true,
-      }).toBuffer();
-
-      await writeWithRetry(filePath, outputBuffer);
+        await writeWithRetry(filePath, outputBuffer);
+      } else {
+        console.log(`${path.basename(filePath)}: sin original, se conserva`);
+      }
 
       const after = statSync(filePath).size;
 
@@ -176,3 +185,4 @@ main().catch((error) => {
   console.error('Error al optimizar imagenes:', error);
   process.exit(1);
 });
+
